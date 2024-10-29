@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $sidecategories = Category::where('parent_id','=','0')->where('status',1)->select('id','name','slug','status','image')->get();
         view()->share('sidecategories',$sidecategories); 
         
-        $menucategories = Category::where('status',1)->select('id','name','slug','status','image')->get();
+        $menucategories = Category::where('status',1)->select('category_icon','id','name','slug','status','image')->get();
         view()->share('menucategories',$menucategories); 
 
         $contact = Contact::where('status',1)->first();

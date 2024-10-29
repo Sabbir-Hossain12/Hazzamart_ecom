@@ -84,10 +84,9 @@
     <ul>
         <li>
             <a class="toggle">
-                        <span>
-                            <i class="fa-solid fa-bars"></i>
-                        </span>
-
+                <span>
+                    <i class="fa-solid fa-bars"></i>
+                </span>
             </a>
         </li>
 
@@ -96,7 +95,6 @@
                         <span>
                             <i class="fa-solid fa-message"></i>
                         </span>
-
             </a>
         </li>
 
