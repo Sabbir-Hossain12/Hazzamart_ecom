@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Sep 08, 2024 at 05:02 PM
--- Server version: 8.0.37
--- PHP Version: 8.3.8
+-- Host: 127.0.0.1
+-- Generation Time: Oct 29, 2024 at 06:34 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `smartbak_beautyglowbd`
+-- Database: `beautyglow`
 --
 
 -- --------------------------------------------------------
@@ -28,11 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `banners` (
-  `id` int UNSIGNED NOT NULL,
-  `category_id` int NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -42,8 +42,8 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `category_id`, `image`, `link`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'public/uploads/banner/17256894631.png', '#', 1, '2024-09-07 06:03:10', '2024-09-07 06:11:03'),
-(2, 1, 'public/uploads/banner/17256895552.png', '#', 1, '2024-09-07 06:12:35', '2024-09-07 06:12:35');
+(1, 1, 'public/uploads/banner/1730100074Banner_Recovered_-03.webp', '#', 1, '2024-09-07 06:03:10', '2024-10-28 07:21:14'),
+(2, 1, 'public/uploads/banner/1730100057Banner-02-02.webp', '#', 1, '2024-09-07 06:12:35', '2024-10-28 07:20:57');
 
 -- --------------------------------------------------------
 
@@ -52,9 +52,9 @@ INSERT INTO `banners` (`id`, `category_id`, `image`, `link`, `status`, `created_
 --
 
 CREATE TABLE `banner_categories` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -76,11 +76,11 @@ INSERT INTO `banner_categories` (`id`, `name`, `status`, `created_at`, `updated_
 --
 
 CREATE TABLE `brands` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'public/uploads/category/default.png',
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT 'public/uploads/category/default.png',
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -92,23 +92,31 @@ CREATE TABLE `brands` (
 --
 
 CREATE TABLE `campaigns` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `banner` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `banner_title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `video` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `short_description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_id` int NOT NULL,
-  `image_one` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `image_two` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `image_three` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `banner` text DEFAULT NULL,
+  `banner_title` text DEFAULT NULL,
+  `video` text DEFAULT NULL,
+  `slug` varchar(255) NOT NULL,
+  `short_description` longtext NOT NULL,
+  `description` longtext NOT NULL,
+  `review` text NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `image_one` text DEFAULT NULL,
+  `image_two` text DEFAULT NULL,
+  `image_three` text DEFAULT NULL,
+  `status` varchar(55) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `campaigns`
+--
+
+INSERT INTO `campaigns` (`id`, `name`, `banner`, `banner_title`, `video`, `slug`, `short_description`, `description`, `review`, `product_id`, `image_one`, `image_two`, `image_three`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Durex Play Single Speed Vibrating Bullet for Women', 'public/uploads/campaign/1727033853-red-and-white-world-malaria-day-(1)-(1).png', 'Durex Play Single Speed Vibrating Bullet for Women', NULL, 'durex-play-single-speed-vibrating-bullet-for-women', '<strong>Durex Play Single Speed Vibrating Bullet</strong> is designed to take your intimate moments to a whole new level of excitement. Crafted for ultimate satisfaction, this compact yet powerful device promises a range of thrilling vibrations that will leave you craving more.', '<p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">Durex Play Single Speed Vibrating Bullet</span>&nbsp;is designed to take your intimate moments to a whole new level of excitement. Crafted for ultimate satisfaction, this compact yet powerful device promises a range of thrilling vibrations that will leave you craving more.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><br></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">&nbsp;Key Features:</span></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Powerful Vibrations:</span>&nbsp;From gentle tremors to intense pulses, the Durex Vibrating Bullet offers customizable vibration intensities, making it easy to find your perfect rhythm of pleasure.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Compact &amp; Travel-Friendly:</span>&nbsp;Small enough to fit in your hand, the petite design ensures that pleasure is never out of reach, whether you\'re at home or on the go.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Simple One-Button Control:</span>&nbsp; A single button is all you need to navigate through the different vibration settings, making the experience as effortless as it is pleasurable.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Body-Safe Materials:</span>&nbsp;Made with high-quality, skin-friendly materials, this bullet ensures a safe, comfortable, and worry-free experience.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Versatile Pleasure:</span>&nbsp;Whether you\'re looking to enhance foreplay, explore solo play, or spice things up with a partner, the Durex Vibrating Bullet offers endless possibilities for intimate exploration.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Waterproof Design:</span>&nbsp;Indulge in aquatic fantasies as this waterproof bullet allows for fun in the bath or shower.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Long-Lasting Enjoyment:</span>&nbsp;Powered by a reliable battery, you can enjoy hours of uninterrupted pleasure, making it the perfect companion for extended play.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><br></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">Conclusion:</span></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\">Unlock a world of heightened sensations with the **Durex Play Vibrating Bullet**. Whether you\'re new to intimate toys or a seasoned explorer, this versatile and discreet bullet offers an exciting path to pleasure. Dive into deeper intimacy, enhance your sensual experiences, and make every moment unforgettable with this powerful little device. Discover the pleasure that awaits with Durex today!</p>', 'Durex Play Single Speed Vibrating Bullet for Women', 27, 'public/uploads/campaign/1726944892-durex-play-single-speed-vibrating-bullet-for-women.webp', 'public/uploads/campaign/1726944892-durex-play-single-speed-vibrating-bullet-for-women.webp', 'public/uploads/campaign/1726858488-durex-play-single-speed-vibrating-bullet-for-women1.webp', '1', '2024-09-20 18:54:49', '2024-09-22 19:37:33'),
+(2, 'Tiam Vita B3 Source Serum 40ml', 'public/uploads/campaign/1727076496-tiam-vita-b3-source-serum-40ml2.jpg', 'Tiam Vita B3 Source Serum 40ml', NULL, 'tiam-vita-b3-source-serum-40ml', '<p class=\"name\" style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-size: 22px; font-weight: 600; text-transform: capitalize; font-family: Roboto, sans-serif;\">Tiam Vita B3 Source Serum 40ml</p><div><br></div>', '<p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\">Packed with an impressive 10% niacinamide (vitamin B3) and 2% arbutin, the TIA’M Vita B3 Source is your go-to solution for tackling dark spots and discoloration. These powerhouse ingredients work synergistically to inhibit melanin production, effectively preventing unwanted pigmentation. Experience your complexion transform into healthier, glowing skin. But there’s more! Niacinamide’s multitasking magic doesn’t end there — this lightweight serum also firms the skin, fights breakouts, and regulates sebum production. Ideal for all skin types, it brightens your skin tone and minimizes the appearance of dark spots, leaving you with a radiant, even complexion.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><br></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">How to Use:&nbsp;</span>&nbsp;After cleansing and toning, apply 3-4 drops of TIA’M Vita B3 Source to the face. For sensitive skin, use 1-2 drops for a gentler application.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><br></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">Key Ingredients:</span></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Niacinamide (10%):</span>&nbsp;Fights dark spots, firms skin, and controls oil.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Arbutin (2%):</span>&nbsp;Brightens and evens skin tone.</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Hydration Boosters:</span>&nbsp;Sodium Hyaluronate, Butylene Glycol</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Skin Soothers:</span>&nbsp;Allantoin, Dipotassium Glycyrrhizate</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">- Botanical Extracts:</span>&nbsp;Lindera Erythrocarpa, Cornus Officinalis, Geranium Thunbergii</p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><br></p><p style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; font-family: Roboto, sans-serif;\"><span style=\"font-weight: bolder;\">Disclaimer:</span>&nbsp;While we strive to keep all product information accurate, product formulations and packaging may change without notice. Prices may also fluctuate, and eMartWay Skincare cannot offer price adjustments on previous orders.</p>', 'Tiam Vita B3 Source Serum 40ml', 15, 'public/uploads/campaign/1727076496-tiam-vita-b3-source-serum-40ml3.webp', 'public/uploads/campaign/1727076496-tiam-vita-b3-source-serum-40ml4.webp', 'public/uploads/campaign/1727076496-tiam-vita-b3-source-serum-40ml2.webp', '1', '2024-09-23 07:28:16', '2024-09-23 07:28:16');
 
 -- --------------------------------------------------------
 
@@ -117,12 +125,25 @@ CREATE TABLE `campaigns` (
 --
 
 CREATE TABLE `campaign_reviews` (
-  `id` int UNSIGNED NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `campaign_id` int NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `campaign_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `campaign_reviews`
+--
+
+INSERT INTO `campaign_reviews` (`id`, `image`, `campaign_id`, `created_at`, `updated_at`) VALUES
+(1, 'public/uploads/campaign/1726858489-durex-play-single-speed-vibrating-bullet-for-women3.png', 1, '2024-09-20 18:54:49', '2024-09-20 18:54:49'),
+(2, 'public/uploads/campaign/1727030957-durex-play-single-speed-vibrating-bullet-for-women.jpg', 1, '2024-09-22 18:49:17', '2024-09-22 18:49:17'),
+(3, 'public/uploads/campaign/1727030957-durex-play-single-speed-vibrating-bullet-for-women3.png', 1, '2024-09-22 18:49:17', '2024-09-22 18:49:17'),
+(4, 'public/uploads/campaign/1727030957-durex-play-single-speed-vibrating-bullet-for-women.png', 1, '2024-09-22 18:49:17', '2024-09-22 18:49:17'),
+(5, 'public/uploads/campaign/1727076496-tiam-vita-b3-source-serum-40ml3.jpg', 2, '2024-09-23 07:28:16', '2024-09-23 07:28:16'),
+(6, 'public/uploads/campaign/1727076496-tiam-vita-b3-source-serum-40ml2.jpg', 2, '2024-09-23 07:28:16', '2024-09-23 07:28:16'),
+(7, 'public/uploads/campaign/1727076496-tiam-vita-b3-source-serum-40ml4.jpg', 2, '2024-09-23 07:28:16', '2024-09-23 07:28:16');
 
 -- --------------------------------------------------------
 
@@ -131,15 +152,16 @@ CREATE TABLE `campaign_reviews` (
 --
 
 CREATE TABLE `categories` (
-  `id` int UNSIGNED NOT NULL,
-  `parent_id` int NOT NULL DEFAULT '0',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'public/uploads/category/default.png',
-  `meta_title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `front_view` int DEFAULT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `category_icon` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT 'public/uploads/category/default.png',
+  `meta_title` varchar(191) DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `front_view` int(11) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -148,16 +170,17 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `image`, `meta_title`, `meta_description`, `front_view`, `status`, `created_at`, `updated_at`) VALUES
-(1, 0, 'Toner/Serum', 'tonerserum', 'public/uploads/category/1725689996-1710961663_rdn-niacinamide-10pct-zinc-1pct-30ml.webp', NULL, NULL, 1, 1, '2024-09-07 06:19:57', '2024-09-07 06:19:57'),
-(2, 0, 'Sunscreen/Sunblock', 'sunscreensunblock', 'public/uploads/category/1725690026-1710961203_ccdspnjtw2sffe1vdvo9kanu4r9premrycajbqd1.webp', NULL, NULL, 1, 1, '2024-09-07 06:20:26', '2024-09-07 16:10:27'),
-(3, 0, 'Hair Care', 'hair-care', 'public/uploads/category/1725690040-1710961123_irbewgqaq6krzljljgca5tbzj9mfrerdcg6eofao.webp', NULL, NULL, 0, 1, '2024-09-07 06:20:40', '2024-09-07 09:29:45'),
-(4, 0, 'Exfoliators/Scrub', 'exfoliatorsscrub', 'public/uploads/category/1725690172-1710961076_wl76ka3hx1u1zpovwnqr7iytestkdx7nrytueam6.webp', NULL, NULL, 0, 1, '2024-09-07 06:22:53', '2024-09-07 09:29:51'),
-(5, 0, 'Body Lotion/Oil', 'body-lotionoil', 'public/uploads/category/1725690185-1710960399_cerave-daily-moisturizing-face-and-body-lotion-for-normal-and-dry-skin-12-oz_fa050fd7-4c62-4694-ac27-d28748a393f8_1.5f6dff2fcb1a5ec2f9b1437aea5dbd6f.webp', NULL, NULL, 0, 1, '2024-09-07 06:23:07', '2024-09-07 09:29:58'),
-(6, 0, 'Skincare Trial Kit', 'skincare-trial-kit', 'public/uploads/category/1725690201-1710961739_6k4xfekqfosevunn3vhekiiqjgfscgvyaerlgarb.webp', NULL, NULL, 0, 1, '2024-09-07 06:23:21', '2024-09-07 09:30:04'),
-(7, 0, 'Eye Care', 'eye-care', 'public/uploads/category/1725732335-eye-care.webp', 'Eye Care', '<p><font color=\"#888888\" face=\"Lato, Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif\"><span style=\"font-size: 12px; text-transform: capitalize;\">Eye Care</span></font><br></p>', 0, 1, '2024-09-07 18:05:35', '2024-09-07 18:05:35'),
-(8, 0, 'Lip Care', 'lip-care', 'public/uploads/category/1725732420-lip-care.webp', 'Lip Care', '<p>Lip Care<br></p>', 0, 1, '2024-09-07 18:07:01', '2024-09-07 18:07:01'),
-(9, 0, 'Makeup', 'makeup', 'public/uploads/category/1725732707-makeup.webp', 'Makeup', '<p>Makeup<br></p>', 0, 1, '2024-09-07 18:11:47', '2024-09-07 18:11:47');
+INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `category_icon`, `image`, `meta_title`, `meta_description`, `front_view`, `status`, `created_at`, `updated_at`) VALUES
+(1, 0, 'Toner/Serum', 'tonerserum', 'fa-baby', 'public/uploads/category/1725689996-1710961663_rdn-niacinamide-10pct-zinc-1pct-30ml.webp', NULL, NULL, 1, 1, '2024-09-07 06:19:57', '2024-09-07 06:19:57'),
+(2, 0, 'Sunscreen/Sunblock', 'sunscreensunblock', 'fa-bag-shopping', 'public/uploads/category/1725690026-1710961203_ccdspnjtw2sffe1vdvo9kanu4r9premrycajbqd1.webp', NULL, NULL, 1, 1, '2024-09-07 06:20:26', '2024-09-07 16:10:27'),
+(3, 0, 'Hair Care', 'hair-care', NULL, 'public/uploads/category/1725690040-1710961123_irbewgqaq6krzljljgca5tbzj9mfrerdcg6eofao.webp', NULL, NULL, 0, 1, '2024-09-07 06:20:40', '2024-09-07 09:29:45'),
+(4, 0, 'Exfoliators/Scrub', 'exfoliatorsscrub', NULL, 'public/uploads/category/1725690172-1710961076_wl76ka3hx1u1zpovwnqr7iytestkdx7nrytueam6.webp', NULL, NULL, 0, 1, '2024-09-07 06:22:53', '2024-09-07 09:29:51'),
+(5, 0, 'Body Lotion/Oil', 'body-lotionoil', NULL, 'public/uploads/category/1725690185-1710960399_cerave-daily-moisturizing-face-and-body-lotion-for-normal-and-dry-skin-12-oz_fa050fd7-4c62-4694-ac27-d28748a393f8_1.5f6dff2fcb1a5ec2f9b1437aea5dbd6f.webp', NULL, NULL, 1, 1, '2024-09-07 06:23:07', '2024-09-09 16:33:39'),
+(6, 0, 'Skincare Trial Kit', 'skincare-trial-kit', NULL, 'public/uploads/category/1725690201-1710961739_6k4xfekqfosevunn3vhekiiqjgfscgvyaerlgarb.webp', NULL, NULL, 0, 1, '2024-09-07 06:23:21', '2024-09-07 09:30:04'),
+(7, 0, 'Eye Care', 'eye-care', NULL, 'public/uploads/category/1725732335-eye-care.webp', 'Eye Care', '<p><font color=\"#888888\" face=\"Lato, Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif\"><span style=\"font-size: 12px; text-transform: capitalize;\">Eye Care</span></font><br></p>', 0, 1, '2024-09-07 18:05:35', '2024-09-07 18:05:35'),
+(8, 0, 'Lip Care', 'lip-care', NULL, 'public/uploads/category/1725732420-lip-care.webp', 'Lip Care', '<p>Lip Care<br></p>', 0, 1, '2024-09-07 18:07:01', '2024-09-07 18:07:01'),
+(9, 0, 'Makeup', 'makeup', NULL, 'public/uploads/category/1725732707-makeup.webp', 'Makeup', '<p>Makeup<br></p>', 0, 1, '2024-09-07 18:11:47', '2024-09-07 18:11:47'),
+(10, 0, 'Body parts care', 'body-parts-care', NULL, 'public/uploads/category/1726858013-intimate-and-sensitive-body-parts-care.webp', 'Intimate and sensitive body parts care', '<p>Intimate and sensitive body parts care<br></p>', 0, 1, '2024-09-20 18:46:54', '2024-10-29 05:46:02');
 
 -- --------------------------------------------------------
 
@@ -166,13 +189,13 @@ INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `image`, `meta_titl
 --
 
 CREATE TABLE `childcategories` (
-  `id` int UNSIGNED NOT NULL,
-  `childcategoryName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'text',
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'text',
-  `subcategory_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `meta_title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `childcategoryName` varchar(255) NOT NULL DEFAULT 'text',
+  `slug` varchar(255) NOT NULL DEFAULT 'text',
+  `subcategory_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `meta_title` varchar(191) DEFAULT NULL,
+  `meta_description` longtext DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -184,10 +207,10 @@ CREATE TABLE `childcategories` (
 --
 
 CREATE TABLE `colors` (
-  `id` int UNSIGNED NOT NULL,
-  `colorName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `colorName` varchar(255) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -235,14 +258,14 @@ INSERT INTO `colors` (`id`, `colorName`, `color`, `status`, `created_at`, `updat
 --
 
 CREATE TABLE `contacts` (
-  `id` int UNSIGNED NOT NULL,
-  `hotline` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hotmail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `maplink` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `hotline` varchar(50) DEFAULT NULL,
+  `hotmail` varchar(50) DEFAULT NULL,
+  `phone` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `maplink` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -252,7 +275,7 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `hotline`, `hotmail`, `phone`, `email`, `address`, `maplink`, `status`, `created_at`, `updated_at`) VALUES
-(1, '01877779338', 'beauty.glow.bd.contact@gmail.com', '01877779338', 'beauty.glow.bd.contact@gmail.com', 'Dhaka, Mirpur-10', '#', 1, '2023-01-22 10:35:29', '2024-09-07 08:28:28');
+(1, '01600498359', 'beauty.glow.bd.contact@gmail.com', '01600498359', 'beauty.glow.bd.contact@gmail.com', 'Dhaka, Mirpur-10', '#', 1, '2023-01-22 10:35:29', '2024-09-21 19:12:49');
 
 -- --------------------------------------------------------
 
@@ -261,13 +284,13 @@ INSERT INTO `contacts` (`id`, `hotline`, `hotmail`, `phone`, `email`, `address`,
 --
 
 CREATE TABLE `courierapis` (
-  `id` bigint UNSIGNED NOT NULL,
-  `type` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `api_key` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `secret_key` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `url` varchar(99) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(55) DEFAULT NULL,
+  `api_key` varchar(155) DEFAULT NULL,
+  `secret_key` varchar(155) DEFAULT NULL,
+  `url` varchar(99) DEFAULT NULL,
+  `token` text DEFAULT NULL,
+  `status` varchar(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -287,12 +310,12 @@ INSERT INTO `courierapis` (`id`, `type`, `api_key`, `secret_key`, `url`, `token`
 --
 
 CREATE TABLE `create_pages` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -315,23 +338,33 @@ INSERT INTO `create_pages` (`id`, `name`, `slug`, `title`, `description`, `statu
 --
 
 CREATE TABLE `customers` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `district` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `area` int DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `verify` int DEFAULT NULL,
-  `forgot` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'public/uploads/default/user.png',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(155) NOT NULL,
+  `slug` varchar(155) NOT NULL,
+  `phone` varchar(55) NOT NULL,
+  `email` varchar(55) DEFAULT NULL,
+  `district` varchar(100) DEFAULT NULL,
+  `area` int(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `verify` int(11) DEFAULT NULL,
+  `forgot` varchar(11) DEFAULT NULL,
+  `image` varchar(255) NOT NULL DEFAULT 'public/uploads/default/user.png',
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
+  `status` varchar(55) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `slug`, `phone`, `email`, `district`, `area`, `address`, `verify`, `forgot`, `image`, `password`, `remember_token`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'G', 'G', '01345678544', NULL, NULL, NULL, NULL, 1, NULL, 'public/uploads/default/user.png', '$2y$10$QC4WMD2UrIH1WhZmKcuH.uHnCeddFB2IKwcfHBFK7vtq6WBnZTDKO', NULL, 'active', '2024-09-16 19:29:19', '2024-09-16 19:29:19'),
+(2, 'Hasan Mia', 'Hasan Mia', '01822386549', NULL, NULL, NULL, NULL, 1, NULL, 'public/uploads/default/user.png', '$2y$10$QvEHIeFaGbGtNZAqlkQoX.C8jpr9RE/HZsYGa4wmHoJcinjsq82Ce', NULL, 'active', '2024-09-19 05:01:44', '2024-09-19 05:01:44'),
+(3, 'fgfg', 'fgfg', '01636073552', NULL, NULL, NULL, NULL, 1, NULL, 'public/uploads/default/user.png', '$2y$10$W0uy8gO2K.5HqdtpFbnSE.o/FA1J0qlq2YVdZlmHgXxaKaITVcu0e', NULL, 'active', '2024-09-20 08:34:03', '2024-09-20 08:34:03'),
+(4, 'X', 'X', '01622862633', NULL, NULL, NULL, NULL, 1, NULL, 'public/uploads/default/user.png', '$2y$10$ldBSR6gTvzDxgacHwD3q0.oEgC4UdJAmylsfBLXHHjsTijuk4Yz.q', NULL, 'active', '2024-10-06 15:13:19', '2024-10-06 15:13:19');
 
 -- --------------------------------------------------------
 
@@ -340,12 +373,12 @@ CREATE TABLE `customers` (
 --
 
 CREATE TABLE `districts` (
-  `id` int UNSIGNED NOT NULL,
-  `area_id` int NOT NULL,
-  `area_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `district` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shippingfee` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `partialpayment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `area_name` varchar(255) NOT NULL,
+  `district` varchar(255) NOT NULL,
+  `shippingfee` varchar(255) NOT NULL,
+  `partialpayment` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1708,9 +1741,9 @@ INSERT INTO `districts` (`id`, `area_id`, `area_name`, `district`, `shippingfee`
 --
 
 CREATE TABLE `ecom_pixels` (
-  `id` int UNSIGNED NOT NULL,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1722,13 +1755,13 @@ CREATE TABLE `ecom_pixels` (
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1738,14 +1771,14 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `general_settings` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `white_logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dark_logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `favicon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `copyright` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(55) NOT NULL,
+  `white_logo` varchar(255) NOT NULL,
+  `dark_logo` varchar(255) NOT NULL,
+  `favicon` varchar(255) NOT NULL,
+  `copyright` varchar(155) DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1755,7 +1788,7 @@ CREATE TABLE `general_settings` (
 --
 
 INSERT INTO `general_settings` (`id`, `name`, `white_logo`, `dark_logo`, `favicon`, `copyright`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Beauty Glow BD', 'public/uploads/settings/1725694937-beauty-glow-skin-care.webp', 'public/uploads/settings/1724225218-96c57c6a-039b-4b95-989e-725f5448e51b.webp', 'public/uploads/settings/1725696661-favicon-32x32.webp', NULL, '<b>sadf</b>', 1, '2023-01-21 12:01:07', '2024-09-07 08:11:01');
+(2, 'Beauty Glow BD', 'public/uploads/settings/1730100349-ht_logo_new-02_f6bf08df-3b60-4e9c-9153-25e7d9f81045.webp', 'public/uploads/settings/1724225218-96c57c6a-039b-4b95-989e-725f5448e51b.webp', 'public/uploads/settings/1725696661-favicon-32x32.webp', NULL, '<b>sadf</b>', 1, '2023-01-21 12:01:07', '2024-10-28 07:25:49');
 
 -- --------------------------------------------------------
 
@@ -1764,9 +1797,9 @@ INSERT INTO `general_settings` (`id`, `name`, `white_logo`, `dark_logo`, `favico
 --
 
 CREATE TABLE `google_tag_managers` (
-  `id` int UNSIGNED NOT NULL,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1778,9 +1811,9 @@ CREATE TABLE `google_tag_managers` (
 --
 
 CREATE TABLE `ip_blocks` (
-  `id` int UNSIGNED NOT NULL,
-  `ip_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `ip_no` varchar(255) NOT NULL,
+  `reason` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1792,9 +1825,9 @@ CREATE TABLE `ip_blocks` (
 --
 
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1853,9 +1886,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `model_has_permissions` (
-  `permission_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint UNSIGNED NOT NULL
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1865,9 +1898,9 @@ CREATE TABLE `model_has_permissions` (
 --
 
 CREATE TABLE `model_has_roles` (
-  `role_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint UNSIGNED NOT NULL
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1890,19 +1923,26 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` int UNSIGNED NOT NULL,
-  `invoice_id` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount` int NOT NULL,
-  `discount` int NOT NULL,
-  `shipping_charge` int NOT NULL,
-  `customer_id` int NOT NULL,
-  `admin_note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `order_status` tinyint NOT NULL,
-  `user_id` int DEFAULT NULL,
-  `note` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `invoice_id` varchar(55) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `discount` int(11) NOT NULL,
+  `shipping_charge` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `admin_note` text DEFAULT NULL,
+  `order_status` tinyint(4) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `note` varchar(256) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `invoice_id`, `amount`, `discount`, `shipping_charge`, `customer_id`, `admin_note`, `order_status`, `user_id`, `note`, `created_at`, `updated_at`) VALUES
+(134, '17525', 1580, 0, 70, 4, NULL, 1, NULL, NULL, '2024-10-06 15:13:19', '2024-10-29 09:15:23');
 
 -- --------------------------------------------------------
 
@@ -1911,19 +1951,27 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_details` (
-  `id` int UNSIGNED NOT NULL,
-  `order_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `product_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `purchase_price` int DEFAULT NULL,
-  `sale_price` int NOT NULL,
-  `product_discount` int DEFAULT '0',
-  `product_size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `qty` int NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `purchase_price` int(11) DEFAULT NULL,
+  `sale_price` int(11) NOT NULL,
+  `product_discount` int(11) DEFAULT 0,
+  `product_size` varchar(255) DEFAULT NULL,
+  `product_color` varchar(255) DEFAULT NULL,
+  `qty` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_name`, `purchase_price`, `sale_price`, `product_discount`, `product_size`, `product_color`, `qty`, `created_at`, `updated_at`) VALUES
+(153, 134, 6, 'Cos De BAHA Alcohol Free Acne Treatment Intensive Facial Serum (AC) 30ml', 1000, 1160, 0, NULL, NULL, 1, '2024-10-06 15:13:19', '2024-10-06 15:13:19'),
+(154, 134, 1, 'AXIS-Y Dark Spot Correcting Glow Serum 5ml', 320, 350, 0, NULL, NULL, 1, '2024-10-29 09:15:23', '2024-10-29 09:15:23');
 
 -- --------------------------------------------------------
 
@@ -1932,10 +1980,10 @@ CREATE TABLE `order_details` (
 --
 
 CREATE TABLE `order_statuses` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(155) NOT NULL,
+  `slug` varchar(155) NOT NULL,
+  `status` varchar(55) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1960,8 +2008,8 @@ INSERT INTO `order_statuses` (`id`, `name`, `slug`, `status`, `created_at`, `upd
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1972,17 +2020,24 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `payments` (
-  `id` int UNSIGNED NOT NULL,
-  `order_id` int NOT NULL,
-  `customer_id` int NOT NULL,
-  `amount` int NOT NULL,
-  `trx_id` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sender_number` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_method` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_status` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `trx_id` varchar(55) DEFAULT NULL,
+  `sender_number` varchar(55) DEFAULT NULL,
+  `payment_method` varchar(55) DEFAULT NULL,
+  `payment_status` varchar(55) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `order_id`, `customer_id`, `amount`, `trx_id`, `sender_number`, `payment_method`, `payment_status`, `created_at`, `updated_at`) VALUES
+(133, 134, 4, 1580, NULL, NULL, 'Cash On Delivery', 'pending', '2024-10-06 15:13:19', '2024-10-29 09:15:23');
 
 -- --------------------------------------------------------
 
@@ -1991,17 +2046,17 @@ CREATE TABLE `payments` (
 --
 
 CREATE TABLE `payment_gateways` (
-  `id` bigint UNSIGNED NOT NULL,
-  `type` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `app_key` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `app_secret` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `base_url` varchar(99) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `success_url` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `return_url` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `prefix` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint NOT NULL DEFAULT '0',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(55) DEFAULT NULL,
+  `app_key` varchar(155) DEFAULT NULL,
+  `app_secret` varchar(155) DEFAULT NULL,
+  `username` varchar(55) DEFAULT NULL,
+  `password` varchar(55) DEFAULT NULL,
+  `base_url` varchar(99) DEFAULT NULL,
+  `success_url` varchar(155) DEFAULT NULL,
+  `return_url` varchar(155) DEFAULT NULL,
+  `prefix` varchar(25) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2021,9 +2076,9 @@ INSERT INTO `payment_gateways` (`id`, `type`, `app_key`, `app_secret`, `username
 --
 
 CREATE TABLE `permissions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2101,12 +2156,12 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 --
 
 CREATE TABLE `personal_access_tokens` (
-  `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -2120,9 +2175,9 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `productcolors` (
-  `id` int UNSIGNED NOT NULL,
-  `product_id` int NOT NULL,
-  `color_id` int NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `color_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2167,9 +2222,9 @@ INSERT INTO `productcolors` (`id`, `product_id`, `color_id`, `created_at`, `upda
 --
 
 CREATE TABLE `productimages` (
-  `id` int UNSIGNED NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_id` int NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2203,7 +2258,50 @@ INSERT INTO `productimages` (`id`, `image`, `product_id`, `created_at`, `updated
 (22, 'public/uploads/product/1725777930-tiam-vita-b3-source-serum-40ml3.jpg', 15, '2024-09-08 06:45:30', '2024-09-08 06:45:30'),
 (23, 'public/uploads/product/1725777930-tiam-vita-b3-source-serum-40ml1.jpg', 15, '2024-09-08 06:45:30', '2024-09-08 06:45:30'),
 (24, 'public/uploads/product/1725777930-tiam-vita-b3-source-serum-40ml2.jpg', 15, '2024-09-08 06:45:30', '2024-09-08 06:45:30'),
-(25, 'public/uploads/product/1725777930-tiam-vita-b3-source-serum-40ml.jpg', 15, '2024-09-08 06:45:30', '2024-09-08 06:45:30');
+(25, 'public/uploads/product/1725777930-tiam-vita-b3-source-serum-40ml.jpg', 15, '2024-09-08 06:45:30', '2024-09-08 06:45:30'),
+(26, 'public/uploads/product/1725899588-hada-labo-shirojyun-premium-brightening-lotion-rich-170ml.jpg', 16, '2024-09-09 16:33:08', '2024-09-09 16:33:08'),
+(27, 'public/uploads/product/1725899588-hada-labo-shirojyun-premium-brightening-lotion-rich-170ml.jpg', 16, '2024-09-09 16:33:08', '2024-09-09 16:33:08'),
+(28, 'public/uploads/product/1725900223-hada-labo-gokujyun-premium-hydrating-lotion-170ml1.webp', 17, '2024-09-09 16:43:43', '2024-09-09 16:43:43'),
+(29, 'public/uploads/product/1725900223-hada-labo-gokujyun-premium-hydrating-lotion-170ml.jpg', 17, '2024-09-09 16:43:43', '2024-09-09 16:43:43'),
+(30, 'public/uploads/product/1725901109-melano-cc-vitamin-c-brightening-milk-lotion-120ml.webp', 18, '2024-09-09 16:58:29', '2024-09-09 16:58:29'),
+(31, 'public/uploads/product/1725901109-melano-cc-vitamin-c-brightening-milk-lotion-120ml1.webp', 18, '2024-09-09 16:58:29', '2024-09-09 16:58:29'),
+(32, 'public/uploads/product/1725901716-meishoku-bigansui-acne-skin-lotion-90ml.jpg', 19, '2024-09-09 17:08:36', '2024-09-09 17:08:36'),
+(33, 'public/uploads/product/1725901716-meishoku-bigansui-acne-skin-lotion-90ml1.webp', 19, '2024-09-09 17:08:36', '2024-09-09 17:08:36'),
+(34, 'public/uploads/product/1725901716-meishoku-bigansui-acne-skin-lotion-90ml.webp', 19, '2024-09-09 17:08:36', '2024-09-09 17:08:36'),
+(35, 'public/uploads/product/1725902274-amlactin-daily-moisturizing-lotion-for-rough-&-dry-skin-567g.jpg', 20, '2024-09-09 17:17:54', '2024-09-09 17:17:54'),
+(36, 'public/uploads/product/1725902274-amlactin-daily-moisturizing-lotion-for-rough-&-dry-skin-567g.jpg', 20, '2024-09-09 17:17:54', '2024-09-09 17:17:54'),
+(37, 'public/uploads/product/1725902843-cetaphil-moisturising-lotion-591ml-dry-to-normal-&-sensitive-skin1.jpg', 21, '2024-09-09 17:27:23', '2024-09-09 17:27:23'),
+(38, 'public/uploads/product/1725902843-cetaphil-moisturising-lotion-591ml-dry-to-normal-&-sensitive-skin.jpg', 21, '2024-09-09 17:27:23', '2024-09-09 17:27:23'),
+(39, 'public/uploads/product/1726074017-embla-daily-moisture-baby-lotion-300ml.jpg', 22, '2024-09-11 17:00:17', '2024-09-11 17:00:17'),
+(41, 'public/uploads/product/1726074576-avene-xeracalm-moisturizing-lotion-200ml.jpg', 23, '2024-09-11 17:09:36', '2024-09-11 17:09:36'),
+(42, 'public/uploads/product/1726074576-avene-xeracalm-moisturizing-lotion-200ml1.jpg', 23, '2024-09-11 17:09:36', '2024-09-11 17:09:36'),
+(43, 'public/uploads/product/1726075068-nella-oneday-magical-whitening-lotion-120ml.jpg', 24, '2024-09-11 17:17:48', '2024-09-11 17:17:48'),
+(44, 'public/uploads/product/1726075068-nella-oneday-magical-whitening-lotion-120ml-number-1.jpg', 24, '2024-09-11 17:17:48', '2024-09-11 17:17:48'),
+(45, 'public/uploads/product/1726075527-vaseline-intensive-care-cocoa-radiant-body-gel-oil-200ml.jpg', 25, '2024-09-11 17:25:27', '2024-09-11 17:25:27'),
+(46, 'public/uploads/product/1726077065-embla-daily-moisture-baby-lotion-300ml.png', 22, '2024-09-11 17:51:05', '2024-09-11 17:51:05'),
+(47, 'public/uploads/product/1726077706-isntree-aloe-soothing-toner-200ml5.jpg', 26, '2024-09-11 18:01:46', '2024-09-11 18:01:46'),
+(48, 'public/uploads/product/1726077706-isntree-aloe-soothing-toner-200ml.jpg', 26, '2024-09-11 18:01:46', '2024-09-11 18:01:46'),
+(49, 'public/uploads/product/1726077706-isntree-aloe-soothing-toner-200ml2.jpg', 26, '2024-09-11 18:01:46', '2024-09-11 18:01:46'),
+(50, 'public/uploads/product/1726077706-isntree-aloe-soothing-toner-200ml4.jpg', 26, '2024-09-11 18:01:46', '2024-09-11 18:01:46'),
+(51, 'public/uploads/product/1726858307-durex-play-single-speed-vibrating-bullet-for-women.jpg', 27, '2024-09-20 18:51:47', '2024-09-20 18:51:47'),
+(52, 'public/uploads/product/1726858307-durex-play-single-speed-vibrating-bullet-for-women1.png', 27, '2024-09-20 18:51:47', '2024-09-20 18:51:47'),
+(53, 'public/uploads/product/1726858307-durex-play-single-speed-vibrating-bullet-for-women3.png', 27, '2024-09-20 18:51:47', '2024-09-20 18:51:47'),
+(54, 'public/uploads/product/1726858307-durex-play-single-speed-vibrating-bullet-for-women.png', 27, '2024-09-20 18:51:47', '2024-09-20 18:51:47'),
+(55, 'public/uploads/product/1727798067-cosrx-ahabha-clarifying-treatment-toner-150ml.jpg', 28, '2024-10-01 15:54:27', '2024-10-01 15:54:27'),
+(56, 'public/uploads/product/1727798067-cosrx-ahabha-clarifying-treatment-toner-150ml.webp', 28, '2024-10-01 15:54:27', '2024-10-01 15:54:27'),
+(57, 'public/uploads/product/1727798067-cosrx-ahabha-clarifying-treatment-toner-150ml2.webp', 28, '2024-10-01 15:54:27', '2024-10-01 15:54:27'),
+(58, 'public/uploads/product/1727798067-cosrx-ahabha-clarifying-treatment-toner-150ml1.webp', 28, '2024-10-01 15:54:27', '2024-10-01 15:54:27'),
+(59, 'public/uploads/product/1727799146-cos-de-baha-hydroquinone-brightening-serum-(hb)-30ml.jpg', 29, '2024-10-01 16:12:26', '2024-10-01 16:12:26'),
+(60, 'public/uploads/product/1727799146-cos-de-baha-hydroquinone-brightening-serum-(hb)-30ml.webp', 29, '2024-10-01 16:12:26', '2024-10-01 16:12:26'),
+(61, 'public/uploads/product/1727800827-cerave-skin-renewing-retinol-serum-30ml.webp', 30, '2024-10-01 16:40:27', '2024-10-01 16:40:27'),
+(62, 'public/uploads/product/1727800827-cerave-skin-renewing-retinol-serum-30ml.jpg', 30, '2024-10-01 16:40:27', '2024-10-01 16:40:27'),
+(63, 'public/uploads/product/1727801630-cerave-resurfacing-retinol-serum-for-skin-barrier-&-skin-smoothness-(imported)2.webp', 31, '2024-10-01 16:53:50', '2024-10-01 16:53:50'),
+(64, 'public/uploads/product/1727801630-cerave-resurfacing-retinol-serum-for-skin-barrier-&-skin-smoothness-(imported).webp', 31, '2024-10-01 16:53:50', '2024-10-01 16:53:50'),
+(65, 'public/uploads/product/1727801630-cerave-resurfacing-retinol-serum-for-skin-barrier-&-skin-smoothness-(imported).jpg', 31, '2024-10-01 16:53:50', '2024-10-01 16:53:50'),
+(66, 'public/uploads/product/1727801630-cerave-resurfacing-retinol-serum-for-skin-barrier-&-skin-smoothness-(imported)1.webp', 31, '2024-10-01 16:53:50', '2024-10-01 16:53:50'),
+(67, 'public/uploads/product/1727803371-beauty-of-joseon-glow-serum-propolis-&-niacinamide-30ml1.jpg', 32, '2024-10-01 17:22:51', '2024-10-01 17:22:51'),
+(68, 'public/uploads/product/1727803371-beauty-of-joseon-glow-serum-propolis-&-niacinamide-30ml.jpg', 32, '2024-10-01 17:22:51', '2024-10-01 17:22:51'),
+(69, 'public/uploads/product/1727803943-cosrx-ahabha-clarifying-treatment-toner-50ml.jpeg', 33, '2024-10-01 17:32:23', '2024-10-01 17:32:23');
 
 -- --------------------------------------------------------
 
@@ -2212,26 +2310,26 @@ INSERT INTO `productimages` (`id`, `image`, `product_id`, `created_at`, `updated
 --
 
 CREATE TABLE `products` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int NOT NULL,
-  `subcategory_id` int DEFAULT NULL,
-  `childcategory_id` int DEFAULT NULL,
-  `brand_id` int DEFAULT NULL,
-  `product_code` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `purchase_price` int DEFAULT '0',
-  `old_price` int DEFAULT NULL,
-  `new_price` int NOT NULL,
-  `stock` int NOT NULL,
-  `pro_unit` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pro_video` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `meta_description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `topsale` tinyint DEFAULT NULL,
-  `feature_product` tinyint DEFAULT NULL,
-  `campaign_id` int DEFAULT NULL,
-  `status` tinyint NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `subcategory_id` int(11) DEFAULT NULL,
+  `childcategory_id` int(11) DEFAULT NULL,
+  `brand_id` int(11) DEFAULT NULL,
+  `product_code` varchar(155) DEFAULT NULL,
+  `purchase_price` int(11) DEFAULT 0,
+  `old_price` int(11) DEFAULT NULL,
+  `new_price` int(11) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `pro_unit` varchar(191) DEFAULT NULL,
+  `pro_video` varchar(255) DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `topsale` tinyint(4) DEFAULT NULL,
+  `feature_product` tinyint(4) DEFAULT NULL,
+  `campaign_id` int(11) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2255,7 +2353,26 @@ INSERT INTO `products` (`id`, `name`, `slug`, `category_id`, `subcategory_id`, `
 (12, 'W.SKIN LAB Triple Care Sun Cream SPF50+ PA++++', 'w.skin-lab-triple-care-sun-cream-spf50+-pa++++-12', 2, 0, NULL, NULL, 'P0012', 1200, 1650, 1440, 100, NULL, NULL, '<p>W.skinlab Triple Care Sun Cream delivers exceptional sun protection and long-lasting water resistance, keeping your skin shielded for up to 12 hours with a lightweight, non-sticky, and non-greasy formula. It absorbs seamlessly, leaving no white residue or cast, making it an ideal base for makeup application.</p><p><br></p><p>Beyond its high-performance UV defense, this sun cream also works as a hydrating moisturizer with anti-aging benefits, giving your skin both protection and care. With an impressive SPF50+ PA++++ rating, it provides the highest level of sun protection available in Korea.</p><p><br></p><p><b>Key Ingredients:</b></p><p>-<b> UV Filters:</b> Ethylhexyl Methoxycinnamate, Isoamyl p-methoxycinnamate, Bis-Ethylhexyphenol Methoxyphenyl Triazine, Zinc Oxide</p><p>- <b>Hydrators:</b> Glycerin, Sodium Hyaluronate</p><p>- <b>Skin Conditioners:</b> Propylene Glycol, Glyceryl Stearate, Sorbitan Stearate</p><p>- <b>Other Key Ingredients:</b> Adenosine for anti-aging, C12-15 Alkyl Benzoate, Beeswax for smooth application</p><p><br></p><p>Perfect for daily use, this multi-tasking sun cream offers top-tier sun protection, hydration, and anti-aging benefits in one step.</p>', NULL, 1, 0, NULL, 1, '2024-09-07 16:50:58', '2024-09-07 16:50:58'),
 (13, 'Cosrx Aloe Soothing Sun Cream 50ml', 'cosrx-aloe-soothing-sun-cream-50ml-13', 2, 0, NULL, NULL, 'P0013', 900, 1240, 1100, 100, NULL, NULL, '<p>Aloe Soothing Sun Cream goes beyond the ordinary—it not only offers complete UVA and UVB protection but also deeply hydrates your skin. Combining advanced sun defense with the soothing power of natural aloe, this sun cream creates a protective moisture barrier that keeps your skin nourished, even under intense sunlight. With this cream, you can face the strongest rays without a worry, as it hydrates and shields your skin simultaneously.</p><p><br></p><p><b>How to Use:</b></p><p>Apply generously as the final step in your skincare routine or at least 30 minutes before sun exposure. For continuous protection during outdoor activities, reapply every two hours. To remove, cleanse thoroughly with a facial cleanser.</p><p><br></p><p><b>Key Ingredients:</b></p><p>-<b> UV Filters</b>: Ethylhexyl Methoxycinnamate, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Titanium Dioxide, Isoamyl P-Methoxycinnamate</p><p>- <b>Hydrators:</b> Glycerin, Aloe Arborescens Leaf Extract, Propylene Glycol</p><p>-<b> Soothing &amp; Conditioning:</b> Dipotassium Glycyrrhizate, Tocopheryl Acetate (Vitamin E)</p><p>- <b>Other Key Ingredients:</b> Cyclopentasiloxane for smooth texture, Cetearyl Alcohol for moisture retention</p><p><br></p><p>Stay sun-safe while keeping your skin refreshed and moisturized with the power of aloe and advanced sun protection technology.</p>', NULL, 1, 0, NULL, 1, '2024-09-07 17:24:21', '2024-09-07 17:24:21'),
 (14, 'SOME BY MI Truecica Mineral Calming Tone-Up Suncream 50ml', 'some-by-mi-truecica-mineral-calming-tone-up-suncream-50ml-14', 2, 0, NULL, NULL, 'P0014', 1000, 1580, 1440, 100, NULL, NULL, '<p>Infused with 85% moisturizing essence, this sun cream combines powerful SPF50+ PA++++ protection with advanced skincare benefits. Enriched with 10,000ppm of patented Truecica™, it not only provides broad-spectrum UV defense but also soothes and strengthens the skin barrier. This multi-tasking formula helps to diminish wrinkles and brighten the complexion.</p><p><br></p><p><b>Features:</b></p><p><b>- Tri-Functional Benefits:&nbsp;</b></p><p>&nbsp; - <b>UV Protection:</b> SPF50+ PA++++ offers comprehensive UVA and UVB blocking with 100% physical filters that won’t penetrate the skin.</p><p><b>&nbsp; - Brightening:</b> Enhances radiance for a more luminous skin tone.</p><p><b>&nbsp; - Anti-Aging: </b>Reduces the appearance of fine lines and wrinkles.</p><p><br></p><p>Its lotion-like texture, rich in moisture, ensures a smooth application with no white cast. Free from artificial fragrances, colorants, and 20 potentially harmful ingredients, this sun cream delivers effective sun protection while caring for your skin.<br><br></p><p><b><span style=\"background-color: var(--ct-card-bg); font-size: var(--ct-body-font-size); text-align: var(--ct-body-text-align); font-family: &quot;Arial Black&quot;;\">&nbsp;</span><span style=\"background-color: var(--ct-card-bg); text-align: var(--ct-body-text-align); font-family: &quot;Arial Black&quot;;\">Instructions for Optimal Skincare</span></b><br></p><p><br></p><p><b>Step 1: Cleanse</b></p><p>Start by washing your face with a gentle cleanser or face wash tailored to your skin type to remove impurities and prep your skin.</p><p><br></p><p><b>Step 2: Tone</b></p><p>Apply a toner to soothe and balance your skin’s pH, setting the stage for the rest of your skincare routine.</p><p><b>Step 3: Treat</b></p><p>Use a serum, facial oil, or essence to deliver essential nutrients deep into your skin, targeting specific concerns and enhancing overall health.</p><p><b>Step 4: Moisturize&nbsp;</b></p><p>Apply a moisturizer or day/night cream to lock in hydration, fortify your skin’s moisture barrier, and shield against environmental stressors.</p><p><b>Step 5: Sun Care&nbsp;&nbsp;</b></p><p>Finish with SOME BY MI Truecica Mineral 100 Calming Suncream. Generously apply to all exposed areas, avoiding the eye area. For optimal protection, apply 15 to 20 minutes before sun exposure.</p><p><br></p><p>This regimen ensures a thorough, balanced approach to skincare, enhancing both the health and appearance of your skin.</p>', NULL, 1, 0, NULL, 1, '2024-09-07 17:51:41', '2024-09-07 17:51:41'),
-(15, 'Tiam Vita B3 Source Serum 40ml', 'tiam-vita-b3-source-serum-40ml-15', 1, 0, NULL, NULL, 'P0015', 900, 1300, 1150, 100, NULL, NULL, '<p>Packed with an impressive 10% niacinamide (vitamin B3) and 2% arbutin, the TIA’M Vita B3 Source is your go-to solution for tackling dark spots and discoloration. These powerhouse ingredients work synergistically to inhibit melanin production, effectively preventing unwanted pigmentation. Experience your complexion transform into healthier, glowing skin. But there’s more! Niacinamide’s multitasking magic doesn’t end there — this lightweight serum also firms the skin, fights breakouts, and regulates sebum production. Ideal for all skin types, it brightens your skin tone and minimizes the appearance of dark spots, leaving you with a radiant, even complexion.</p><p><br></p><p><b>How to Use:&nbsp;</b> After cleansing and toning, apply 3-4 drops of TIA’M Vita B3 Source to the face. For sensitive skin, use 1-2 drops for a gentler application.</p><p><br></p><p><b>Key Ingredients:</b></p><p><b>- Niacinamide (10%):</b> Fights dark spots, firms skin, and controls oil.</p><p><b>- Arbutin (2%):</b> Brightens and evens skin tone.</p><p><b>- Hydration Boosters:</b> Sodium Hyaluronate, Butylene Glycol</p><p><b>- Skin Soothers:</b> Allantoin, Dipotassium Glycyrrhizate</p><p><b>- Botanical Extracts:</b> Lindera Erythrocarpa, Cornus Officinalis, Geranium Thunbergii</p><p><br></p><p><b>Disclaimer:</b> While we strive to keep all product information accurate, product formulations and packaging may change without notice. Prices may also fluctuate, and eMartWay Skincare cannot offer price adjustments on previous orders.</p>', NULL, 1, 0, NULL, 1, '2024-09-08 06:45:30', '2024-09-08 06:45:30');
+(15, 'Tiam Vita B3 Source Serum 40ml', 'tiam-vita-b3-source-serum-40ml-15', 1, 0, NULL, NULL, 'P0015', 900, 1300, 1150, 100, NULL, NULL, '<p>Packed with an impressive 10% niacinamide (vitamin B3) and 2% arbutin, the TIA’M Vita B3 Source is your go-to solution for tackling dark spots and discoloration. These powerhouse ingredients work synergistically to inhibit melanin production, effectively preventing unwanted pigmentation. Experience your complexion transform into healthier, glowing skin. But there’s more! Niacinamide’s multitasking magic doesn’t end there — this lightweight serum also firms the skin, fights breakouts, and regulates sebum production. Ideal for all skin types, it brightens your skin tone and minimizes the appearance of dark spots, leaving you with a radiant, even complexion.</p><p><br></p><p><b>How to Use:&nbsp;</b> After cleansing and toning, apply 3-4 drops of TIA’M Vita B3 Source to the face. For sensitive skin, use 1-2 drops for a gentler application.</p><p><br></p><p><b>Key Ingredients:</b></p><p><b>- Niacinamide (10%):</b> Fights dark spots, firms skin, and controls oil.</p><p><b>- Arbutin (2%):</b> Brightens and evens skin tone.</p><p><b>- Hydration Boosters:</b> Sodium Hyaluronate, Butylene Glycol</p><p><b>- Skin Soothers:</b> Allantoin, Dipotassium Glycyrrhizate</p><p><b>- Botanical Extracts:</b> Lindera Erythrocarpa, Cornus Officinalis, Geranium Thunbergii</p><p><br></p><p><b>Disclaimer:</b> While we strive to keep all product information accurate, product formulations and packaging may change without notice. Prices may also fluctuate, and eMartWay Skincare cannot offer price adjustments on previous orders.</p>', NULL, 1, 0, NULL, 1, '2024-09-08 06:45:30', '2024-09-08 06:45:30'),
+(16, 'Hada Labo Shirojyun Premium Brightening Lotion Rich 170ml', 'hada-labo-shirojyun-premium-brightening-lotion-rich-170ml-16', 5, 0, NULL, NULL, 'P0016', 1600, 2180, 1900, 100, NULL, NULL, '<p>Hada Labo Shirojyun Premium Whitening Lotion Rich is a luxurious, moisture-rich Japanese lotion designed to fade sunspots and deeply hydrate the skin. With a texture as potent as a serum, this upgraded formula is engineered to prevent sunspots more effectively than its 2017 predecessor.&nbsp;</p><p><br></p><p>Infused with a powerful blend of <b>Tranexamic acid</b> and <b>Dipotassium Glycyrrhizate</b>, it works to prevent inflammation, soothe rough skin, and target the root causes of discoloration. Vitamin C derivatives and vitamin E, combined with two types of hyaluronic acid (high and nano molecular weight), deliver intense hydration while combating UV-induced damage.</p><p><br></p><p>This deeply penetrating lotion is ideally suited for normal to dry skin, offering lasting moisture and preventing UV-induced pigmentation, all while leaving your skin smooth and radiant.</p><p><br></p><p><b>Key Ingredients:&nbsp;&nbsp;</b></p><p><b>- Tranexamic Acid:</b> Fades sunspots and prevents discoloration.</p><p><b>- Glycyrrhizic Acid 2K:</b> Calms and soothes the skin.</p><p><b>- Vitamin C Derivatives:</b> Brightens and combats UV damage.</p><p><b>- Vitamin E:</b> Nourishes and protects.</p><p><b>- Hyaluronic Acid (High and Nano Molecular Weight):</b> Provides deep hydration and plumps the skin.</p><p><br></p><p><b>Additional Ingredients:</b> Hydrolyzed hyaluronic acid, concentrated glycerin, pentylene glycol, PEG, diglycerin, sodium pyrosulfite, phenoxyethanol, and more.</p><p><br></p><p>This revitalized lotion is your all-in-one solution for smoother, brighter, and deeply hydrated skin.</p>', NULL, 0, 0, NULL, 1, '2024-09-09 16:33:08', '2024-09-09 16:33:08'),
+(17, 'Hada Labo Gokujyun Premium Hydrating Lotion 170ml', 'hada-labo-gokujyun-premium-hydrating-lotion-170ml-17', 5, 0, NULL, NULL, 'P0017', 1500, 1940, 1760, 100, NULL, NULL, '<p>Hada Labo Gokujyun Premium Lotion is the ultimate moisture booster, delivering an instant surge of hydration to help balance and lock in moisture for plump, silky-smooth skin. Featuring an advanced blend of 7 unique types of hyaluronic acid, this luxurious Japanese lotion replenishes and deeply nourishes dry, dehydrated skin, leaving it softer and more supple than ever before.</p><p><br></p><p>Ideal for sensitive and dry skin, this premium formula is free from fragrance, oil, alcohol, and colorants—ensuring a non-irritating experience without causing breakouts. The 7 forms of hyaluronic acid work in synergy to penetrate multiple layers of the skin, providing long-lasting hydration and improving your skin\'s moisture retention.</p><p><br></p><p><b>The 7 Hyaluronic Acids at Work:</b></p><p><b>- Hyaluronic Acid (HA):</b> Replenishes moisture and supports skin elasticity.</p><p><b>- Super HA</b>: Long-lasting hydration that tones and smoothens skin.</p><p><b>- Nano HA:</b> Ultra-fine molecules penetrate deep for enhanced absorption.</p><p><b>- Absorbent HA:</b> Creates a moisture barrier to lock in hydration.</p><p><b>- 3D HA:</b> Forms a smooth, plumping layer on the surface to hold 5x more moisture than conventional HA.</p><p><b>- Penetrating HA:</b> Deeply hydrates while protecting the skin\'s barrier.</p><p><b>- Fermented HA:</b> Derived from lactic acid fermentation for optimal moisture retention.</p><p><br></p><p>This powerful combination deeply hydrates and rejuvenates, making it a favorite among beauty bloggers and skincare enthusiasts worldwide. Suitable for daily use, it\'s the perfect addition to your skincare routine to achieve a dewy, radiant complexion.</p><p><br></p><p><b>How to Use:</b></p><p>After cleansing with Hada Labo Gokujyun Face Wash, pour a nickel-sized amount into your palms, warm between your hands, and gently pat onto your face and neck. Allow full absorption before applying additional moisturizers or makeup. Use morning and night for best results.</p><p><br></p><p>Discover why customers rave about the deep hydration and smooth finish of this Hada Labo Premium Lotion—your go-to for glowing, hydrated skin.</p>', NULL, 0, 0, NULL, 1, '2024-09-09 16:43:43', '2024-09-09 16:43:43'),
+(18, 'Melano CC Vitamin C Brightening Milk Lotion 120ml', 'melano-cc-vitamin-c-brightening-milk-lotion-120ml-18', 5, 0, NULL, NULL, 'P0018', 1400, 1840, 1620, 100, NULL, NULL, '<p>Introducing a powerful blend of antioxidants and brightening ingredients, this lotion, enriched with a long-lasting Vitamin C derivative, is designed to fade dark spots and unveil a radiant, luminous complexion. Its fast-absorbing formula works effectively to prevent discoloration and enhance skin clarity.&nbsp;</p><p><br></p><p>Key Features:</p><p>- Formulated with L-ascorbic acid 2-glucoside, a stable and potent Vitamin C derivative, to suppress melanin production and prevent spots and freckles.</p><p>- Infused with dipotassium glycyrrhizinate for anti-inflammatory benefits, helping soothe irritated skin and reduce acne scars.</p><p>- Enriched with natural extracts like Alpinia White, Lemon, and Grapefruit for added moisture and brightening effects.</p><p>- Ideal for daily use, this lightweight lotion offers long-term protection against unwanted pigmentation, leaving your skin smooth, hydrated, and refreshed with a subtle citrus scent.</p><p><br></p><p><b>How to Use:</b></p><p>After prepping your skin with a toner or lotion, apply a small amount to your palm and gently spread it across your face. Use daily for best results.</p><p><br></p><p><b>Ingredients:</b></p><p>Active: L-ascorbic acid 2-glucoside (Vitamin C derivative), Dipotassium Glycyrrhizinate&nbsp;&nbsp;</p><p>Others: Vitamin C, Lemon Extract, Grapefruit Extract, Alpinia Katsumadai Seed Extract, Concentrated Glycerin, BG, Pentanediol, Glyceryl Trioctanoate, Sorbitan Stearate, Cetanol, Dimethicone, and more.</p><p><br></p><p>Enjoy bright, even-toned skin with a formula that blends seamlessly and nourishes deeply.</p>', NULL, 0, 0, NULL, 1, '2024-09-09 16:58:29', '2024-09-09 16:58:29'),
+(19, 'Meishoku Bigansui Acne Skin Lotion 90ml', 'meishoku-bigansui-acne-skin-lotion-90ml-19', 5, 0, NULL, NULL, 'P0019', 1400, 1800, 1630, 100, NULL, NULL, '<p><b>Introduction&nbsp;</b><span style=\"background-color: var(--ct-card-bg); text-align: var(--ct-body-text-align);\"><b>Meishoku Bigansui</b></span><b style=\"background-color: var(--ct-card-bg); font-size: var(--ct-body-font-size); text-align: var(--ct-body-text-align);\">:</b></p><p>Give your skin the care it deserves with Meishoku Bigansui Medicated Lotion, a trusted solution for acne prevention that has earned multiple beauty awards in Japan.</p><p><br></p><p><b>Benefits:</b></p><p>- Powered by **Salicylic Acid**, an active ingredient that gently exfoliates and removes dead skin cells, preventing clogged pores and future breakouts.</p><p>- Boosts skin cell turnover, helping to reduce acne scars while keeping acne-causing bacteria at bay.</p><p>- Infused with the delicate fragrance of Japanese Flower Herb, making each application a refreshing skincare ritual.</p><p>- Perfect for all skin types, especially combination skin.</p><p><br></p><p><b>Details:</b></p><p><b>- Brand:</b> Meishoku&nbsp;&nbsp;</p><p><b>- Country of Origin:</b> Japan&nbsp;&nbsp;</p><p><b>- Range:</b> Face&nbsp;&nbsp;</p><p><b>- Type: </b>Medicated Lotion&nbsp;&nbsp;</p><p><b>- Volume:</b> 90ml&nbsp;&nbsp;</p><p><b>- Package Includes:</b> 1 x Meishoku Bigansui Skin Lotion 90ml (New)</p><p><br></p><p><b>How to Use:</b></p><p>After cleansing or shaving, apply the lotion to your face using a cotton pad, avoiding the eye area. Enjoy the fresh, acne-preventing power of this award-winning formula!</p><p><br></p>', NULL, 0, 0, NULL, 1, '2024-09-09 17:08:36', '2024-09-09 17:08:36'),
+(20, 'Amlactin Daily Moisturizing Lotion For Rough & Dry Skin 567g', 'amlactin-daily-moisturizing-lotion-for-rough-&-dry-skin-567g-20', 5, 0, NULL, NULL, 'P0020', 3400, 4120, 3850, 100, NULL, NULL, '<p>Restore your skin’s natural softness with AmLactin Alpha-Hydroxy Therapy, a clinically proven moisturizer designed to transform dry, rough skin. Powered by 12% lactic acid, this pH-balanced formula gently exfoliates to promote natural skin cell renewal while delivering deep hydration for long-lasting comfort.</p><p><br></p><p><b>Why You\'ll Love It:</b></p><p><b>- Total Body Hydration:</b> This all-in-one lotion simplifies your routine, offering daily nourishment for your face, hands, and body with just one application.</p><p><b>- Gentle Exfoliation:</b> Formulated with 5% lactic acid, a gentle AHA, it sloughs off dead skin cells and boosts cell turnover for softer, smoother skin.</p><p><b>- Moisture-Rich Formula:</b> Enriched with ceramides, niacinamide (Vitamin B3), Vitamin D, and Vitamin E, it locks in moisture while soothing and replenishing skin’s natural barrier.</p><p><b>- Simplified Skincare:</b> Streamline your routine with this multi-tasking lotion that exfoliates and hydrates in one easy step.</p><p><b>- Deep Care for Sensitive Skin:</b> Free from parabens and fragrance, this lightweight, non-greasy lotion is safe for sensitive skin, delivering confidence in every application.</p><p><br></p><p>AmLactin is the dermatologist-recommended brand trusted for its therapeutic, lactic acid-powered formulas, offering the deepest care for normal to dry skin.</p>', NULL, 0, 0, NULL, 1, '2024-09-09 17:17:54', '2024-09-09 17:17:54'),
+(21, 'Cetaphil Moisturising Lotion 591ml Dry To Normal & Sensitive Skin', 'cetaphil-moisturising-lotion-591ml-dry-to-normal-&-sensitive-skin-21', 5, 0, NULL, NULL, 'P0021', 3200, 3900, 3450, 100, NULL, NULL, '<p>Cetaphil Moisturizing Lotion, in its generous 591ml size, is your go-to solution for long-lasting hydration that leaves skin feeling velvety soft and revitalized. This fast-absorbing, lightweight formula offers deep nourishment without any greasy or sticky residue, ensuring your skin feels fresh and smooth all day long.</p><p><br></p><p><b>Why It Works:</b></p><p><b>- Non-Greasy Hydration: </b>A perfect balance of emollients, humectants, and occlusives replenishes and locks in moisture without clogging pores or leaving a heavy feel.</p><p><b>- Gentle &amp; Fragrance-Free:</b> Ideal for sensitive skin, this fragrance-free and non-comedogenic lotion ensures daily hydration without irritation, making it suitable for all skin types.</p><p><b>- Whole-Body Care</b>: Gentle enough for everyday use, it can be applied to the whole body, focusing on notoriously dry areas like hands, elbows, and knees, for all-day softness.</p><p><b>- Great Value: </b>The large 591ml bottle provides exceptional value, making this high-quality body lotion both effective and affordable.</p><p><b>- Healthier Skin Over Time:</b> Regular use improves skin texture and health, leaving your skin looking and feeling soft, smooth, and naturally healthy.</p><p><br></p><p><b>Ingredients:&nbsp;</b></p><p>Water, Glycerin, Isopropyl Palmitate, Cetearyl Alcohol, Ceteareth-20, Panthenol, Niacinamide, Tocopheryl Acetate, Dimethicone, Persea Gratissima (Avocado) Oil, Helianthus Annuus (Sunflower) Seed Oil, Pantolactone, Glyceryl Stearate, Sodium Benzoate, Benzyl Alcohol, Citric Acid.</p><p><br></p><p>Elevate your skincare routine with the trusted hydration of Cetaphil—your skin will thank you!</p>', NULL, 0, 0, NULL, 1, '2024-09-09 17:27:23', '2024-09-09 17:27:23');
+INSERT INTO `products` (`id`, `name`, `slug`, `category_id`, `subcategory_id`, `childcategory_id`, `brand_id`, `product_code`, `purchase_price`, `old_price`, `new_price`, `stock`, `pro_unit`, `pro_video`, `description`, `meta_description`, `topsale`, `feature_product`, `campaign_id`, `status`, `created_at`, `updated_at`) VALUES
+(22, 'Embla Daily Moisture Baby Lotion 300ml', 'embla-daily-moisture-baby-lotion-300ml-25', 5, 0, NULL, NULL, 'P0022', 1600, 2140, 1850, 100, NULL, NULL, '<p>Embla Daily Moisture Body Lotion is the perfect companion for your baby\'s daily skincare routine. This gentle lotion is designed to be massaged into your baby’s growing skin, providing comfort and hydration while leaving their skin feeling soft and smooth.</p><p><br></p><p><b>Why Choose Embla Baby Lotion:</b></p><p><b>- Nourishing &amp; Soothing:</b> Specially formulated to keep your baby’s skin smooth and supple, ensuring lasting moisture throughout the day.</p><p><b>- pH Balanced for Delicate Skin:</b> Designed to maintain your baby’s natural skin balance, this lotion supports healthy skin development without causing irritation.</p><p><b>- Dermatologist-Tested:</b> Gentle enough for daily use, it’s a trusted choice by dermatologists for your baby’s sensitive skin.</p><p><b>- Safe for Everyday Use:</b> The mild, non-irritating formula is ideal for regular use, promoting comfort and hydration as part of your baby’s care routine.</p><p><br></p><p><b>How to Use:</b></p><p>Simply dispense a small amount of lotion onto your palm, then gently apply it to your baby’s skin, massaging it in for all-day softness.</p><p><br></p><p>Give your little one the gentle, loving care they deserve with Embla Daily Moisture Body Lotion.</p>', NULL, 0, 0, NULL, 1, '2024-09-11 17:00:17', '2024-09-11 17:51:05'),
+(23, 'Avene Xeracalm Moisturizing Lotion 200ml', 'avene-xeracalm-moisturizing-lotion-200ml-23', 5, 0, NULL, NULL, 'P0023', 2200, 2650, 2460, 100, NULL, NULL, '<p>Avene Nourishing Lotion is expertly crafted to comfort, hydrate, and nourish dry, sensitive skin while reinforcing the skin’s natural barrier. Offering up to 48 hours of hydration, it alleviates tightness and delivers lasting softness.</p><p><br></p><p><b>Key Features:</b></p><p><b>- Deep Hydration &amp; Nourishment:</b> Infused with the skin-loving properties of milk thistle, this lotion helps boost ceramide production, providing an anti-drying effect that intensely hydrates for up to 48 hours.</p><p><b>- Immediate Results:</b> Experience an instant hydration boost, with over 85% increase in skin moisture right after application.</p><p><b>- Gentle for All Ages:</b> Suitable for the whole family, from infants (1 month+) to adults, this lotion is gentle enough for even the most delicate skin.</p><p><br></p><p><b>Instructions for Use:</b></p><p>Apply 1 to 2 times daily to clean, dry skin. Ideal for daily use by all family members.</p><p><br></p><p><b>Ingredients:</b></p><p><b>- Main Actives:</b> Avene Thermal Spring Water, Milk Thistle Oil, and Niacinamide.</p><p><b>- Natural Origin:</b> With 97% natural ingredients, including Sunflower Seed Oil and Glycerin, it ensures your skin stays nourished and protected.</p><p>&nbsp;&nbsp;</p><p>Give your skin the soothing hydration it deserves with Avene Nourishing Lotion, ideal for restoring comfort to dry, sensitive skin.</p>', NULL, 0, 0, NULL, 1, '2024-09-11 17:09:36', '2024-09-11 17:09:36'),
+(24, 'Nella Oneday Magical Whitening Lotion 120ml', 'nella-oneday-magical-whitening-lotion-120ml-24', 5, 0, NULL, NULL, 'P0024', 1300, 1700, 1550, 100, NULL, NULL, '<p>Experience an instant glow with this lightweight, waterproof lotion infused with the power of niacinamide, panthenol, and witch hazel water. Designed to brighten and even out skin tone, this formula offers up to 8-10 hours of luminous radiance while keeping your skin hydrated and smooth. Its non-sticky, fast-absorbing texture is perfect for both face and body, delivering a long-lasting tone-up effect without the need to rinse off.</p><p><br></p><p><b>Key Benefits:</b></p><p><b>- Instant Brightening:</b> Provides an immediate whitening and brightening effect that lasts for hours, making your skin look refreshed and radiant.</p><p><b>- Waterproof &amp; Sweatproof:</b> Ideal for all-day wear, even in humid conditions. Perfect for those who want a luminous glow without worrying about sweat or water.</p><p><b>- Lightweight Formula:</b> The lotion spreads effortlessly, leaving no sticky residue, and is suitable as both a body lotion and makeup base.</p><p><br></p><p><b>How to Use:</b></p><p>Apply a small amount to your face or body, gently blending in for an even, bright complexion. Perfect as a makeup base or a daily skin tone-enhancing lotion.</p><p><br></p><p><b>Ingredients:</b></p><p>A powerful blend of Niacinamide, Panthenol, and Witch Hazel Water combined with natural extracts like Mallow and Peppermint Leaf ensures hydration and brightening without irritation.</p><p><br></p><p>Elevate your skincare routine with this multi-tasking lotion for a flawless, glowing complexion that lasts all day.</p><p><br></p><p><b>Note:</b> Product packaging and information may change over time. Please refer to the actual product for the most accurate details.</p>', NULL, 0, 0, NULL, 1, '2024-09-11 17:17:48', '2024-09-11 17:17:48'),
+(25, 'Vaseline Intensive Care Cocoa Radiant Body Gel Oil 200ml', 'vaseline-intensive-care-cocoa-radiant-body-gel-oil-200ml-25', 5, 0, NULL, NULL, 'P0025', 1000, 1400, 1250, 100, NULL, NULL, '<p><b>Vaseline Intensive Care Cocoa Radiant Body Gel Oil </b>is enriched with pure cocoa butter and nourishing oils, designed to deeply moisturize and enhance your skin\'s natural glow. This revitalizing gel oil locks in moisture to restore dry, lackluster skin, leaving it feeling smooth, soft, and radiantly healthy. The lightweight formula absorbs quickly, ensuring a non-greasy finish, making it perfect for sensitive skin types. Infused with the comforting scent of warm cocoa butter, it provides a luxurious, pampering experience.</p><p><br></p><p><b>Key Features:</b></p><p><b>- Deep Moisture &amp; Radiance:</b> Powered by pure cocoa butter and replenishing oils, it helps revive dull, dry skin with a healthy glow.</p><p><b>- Fast-Absorbing &amp; Non-Greasy:</b> Lightweight gel oil absorbs instantly, leaving skin silky without any greasy residue.</p><p><b>- Ideal for Sensitive Skin:</b> Gentle enough for everyday use on sensitive skin, offering long-lasting hydration.</p><p><b>- Cocoa Butter Scent:</b> Infused with the rich, warm fragrance of cocoa butter for a soothing and indulgent experience.</p><p><br></p><p><b>How to Use:</b></p><p>After a shower or bath, apply a few drops of **Vaseline Cocoa Radiant Body Gel Oil** onto damp skin to lock in moisture. Gently massage into your skin, focusing on areas prone to dryness. Reapply throughout the day as needed for continuous hydration and glowing skin.</p><p><br></p><p>Feel the difference as your skin transforms into a soft, nourished, and radiant canvas with every use.</p>', NULL, 0, 0, NULL, 1, '2024-09-11 17:25:27', '2024-09-11 17:25:27'),
+(26, 'Isntree Aloe Soothing Toner 200ml', 'isntree-aloe-soothing-toner-200ml-26', 1, 0, NULL, NULL, 'P0026', 1600, 2070, 1850, 100, NULL, NULL, '<p><b>Isntree Aloe Soothing</b> <b>Toner </b>delivers all-day hydration while calming and protecting irritated skin. Formulated with Aloe Vera leaf extract, this toner replenishes moisture, leaving your skin refreshed and soothed. The lightweight texture absorbs quickly, making it ideal for maintaining skin balance and hydration throughout the day.</p><p><br></p><p><b>How to Use:</b></p><p>After cleansing, apply an appropriate amount of toner to your hands or a cotton pad. Gently pat onto your face for absorption. For an enhanced cooling effect, store the toner in the refrigerator and enjoy a refreshing, soothing sensation with each use.</p><p><br></p><p><b>Pro Tip:</b> Keep it chilled in the fridge to boost its cooling properties for extra relief on hot days or irritated skin.</p><p><br></p><p><b>Key Ingredients:</b></p><p><b>- Aloe Vera Leaf Extract:</b> Hydrates and soothes the skin, reducing irritation.</p><p><b>- Centella Asiatica &amp; Green Tea Extracts:</b> Offer calming and antioxidant benefits.</p><p><b>- Sodium Hyaluronate &amp; Betaine:</b> Help lock in moisture and prevent dryness.</p><p><b>- Licorice Root &amp; Chamomile Extracts:</b> Provide anti-inflammatory and brightening effects.</p><p><br></p><p>This gentle, refreshing toner is perfect for those looking to restore moisture and calm their skin, leaving it soft, hydrated, and ready for the day ahead.</p>', NULL, 0, 0, NULL, 1, '2024-09-11 18:01:46', '2024-09-11 18:01:46'),
+(27, 'Durex Play Single Speed Vibrating Bullet for Women', 'durex-play-single-speed-vibrating-bullet-for-women-27', 10, 0, NULL, NULL, 'P0027', 1800, 2300, 2130, 100, NULL, NULL, '<p><b>Durex Play Single Speed Vibrating Bullet</b> is designed to take your intimate moments to a whole new level of excitement. Crafted for ultimate satisfaction, this compact yet powerful device promises a range of thrilling vibrations that will leave you craving more.</p><p><br></p><p><b>&nbsp;Key Features:</b></p><p><b>- Powerful Vibrations:</b> From gentle tremors to intense pulses, the Durex Vibrating Bullet offers customizable vibration intensities, making it easy to find your perfect rhythm of pleasure.</p><p><b>- Compact &amp; Travel-Friendly:</b> Small enough to fit in your hand, the petite design ensures that pleasure is never out of reach, whether you\'re at home or on the go.</p><p><b>- Simple One-Button Control:</b>&nbsp; A single button is all you need to navigate through the different vibration settings, making the experience as effortless as it is pleasurable.</p><p><b>- Body-Safe Materials:</b> Made with high-quality, skin-friendly materials, this bullet ensures a safe, comfortable, and worry-free experience.</p><p><b>- Versatile Pleasure:</b> Whether you\'re looking to enhance foreplay, explore solo play, or spice things up with a partner, the Durex Vibrating Bullet offers endless possibilities for intimate exploration.</p><p><b>- Waterproof Design:</b> Indulge in aquatic fantasies as this waterproof bullet allows for fun in the bath or shower.</p><p><b>- Long-Lasting Enjoyment:</b> Powered by a reliable battery, you can enjoy hours of uninterrupted pleasure, making it the perfect companion for extended play.</p><p><br></p><p><b>Conclusion:</b></p><p>Unlock a world of heightened sensations with the **Durex Play Vibrating Bullet**. Whether you\'re new to intimate toys or a seasoned explorer, this versatile and discreet bullet offers an exciting path to pleasure. Dive into deeper intimacy, enhance your sensual experiences, and make every moment unforgettable with this powerful little device. Discover the pleasure that awaits with Durex today!</p>', NULL, 0, 0, NULL, 1, '2024-09-20 18:51:47', '2024-09-21 18:33:26'),
+(28, 'Cosrx AHA/BHA Clarifying Treatment Toner 150ml', 'cosrx-aha-bha-clarifying-treatment-toner-150ml-28', 1, 0, NULL, NULL, 'P0028', 1100, 1560, 1399, 100, NULL, NULL, '<p>This <b>treatment toner</b> brings the power of daily exfoliation with a mild yet effective<b> AHA/BHA formulation</b>, designed to gently reveal smoother, healthier skin. Infused with nutrient-rich <b>white willow extract </b>and <b>apple water,</b> it ensures your skin is nourished while undergoing a gentle peel. Over time, this clarifying toner helps your complexion appear brighter, with a refined texture that feels fresh and renewed.</p><p><br></p><p><b>Key Benefits:</b></p><p><b>- Daily Exfoliation:</b> Promotes smoother, softer skin with mild yet effective exfoliation.</p><p><b>- Gentle Peeling</b>: Allows nutrients to deeply penetrate the skin, enhancing overall skin health.</p><p><b>- Brighter Complexion:</b> Helps reveal newer, more radiant skin with continued use.</p><p><b>- Clears Pores &amp; Balances Oil:</b> Ideal for addressing congested pores and controlling oil production.</p><p><b>- Suitable for Sensitive Skin:</b> Gentle enough for daily use and works well with all skin types.</p><p><br></p><p><b>Ingredients:</b></p><p>-<b> Salix Alba (Willow) Bark Water &amp; Pyrus Malus (Apple) Fruit Water:</b> Natural exfoliants that help reduce breakouts and improve skin clarity.</p><p><b>- Glycolic Acid:</b> Smooths the skin\'s surface for a refined texture.</p><p>-<b> Betaine Salicylate:</b> Gently clears pores and balances excess oil for a clearer complexion.</p><p><br></p><p><b>How to Use:</b></p><p>After cleansing, apply the toner with a cotton pad, gently wiping it across the face while avoiding the eye and mouth area. For daytime use, follow up with SPF 30 or higher.</p><p><br></p><p><b>Caution:</b></p><p>- Avoid combining with other acid-based treatments (AHAs/BHAs/Retinols/Vitamin C).</p><p>- Not recommended for use during pregnancy or breastfeeding.</p><p><br></p><p>This gentle exfoliating toner is a perfect addition to your skincare routine, offering a balance between clarity and nourishment for a glowing, refreshed complexion.</p>', NULL, 0, 0, NULL, 1, '2024-10-01 15:54:27', '2024-10-01 15:54:27'),
+(29, 'Cos De BAHA Hydroquinone Brightening Serum (HB) 30ml', 'cos-de-baha-hydroquinone-brightening-serum-(hb)-30ml-29', 1, 0, NULL, NULL, 'P0029', 800, 1230, 1020, 100, NULL, NULL, '<p>COS DE BAHA Hydroquinone Brightening Serum is your go-to solution for tackling dark spots, melasma, and hyperpigmentation. Formulated with <b>2% Hydroquinone</b>, <b>Arbutin</b>, and <b>4% Niacinamide</b>, this serum works effectively to correct uneven skin tone, leaving your complexion brighter and more balanced. Now available in Bangladesh at an affordable price, experience the powerful skin-lightening benefits trusted by many.</p><p><br></p><p><b>Product Overview:</b></p><p><b>- Country of Origin:</b> Korea</p><p><b>- Key Ingredients:</b> 2% Hydroquinone, Arbutin, Niacinamide 4%</p><p><b>- Benefits:</b></p><p>&nbsp; - Targets hyperpigmentation and dark spots</p><p>&nbsp; - Treats melasma and freckles</p><p>&nbsp; - Promotes skin lightening for a radiant complexion</p><p>&nbsp; - Helps even out skin tone</p><p><br></p><p><b>What Makes COS DE BAHA Hydroquinone Serum Effective?</b></p><p>Hydroquinone is a clinically proven skin-lightening agent that works by reducing the number of <b>melanocytes</b>, the cells responsible for melanin production. In cases of hyperpigmentation, an excess of melanocytes leads to uneven skin tone. Hydroquinone helps reduce this production, resulting in a more uniform complexion.</p><p><br></p><p><b>Is Hydroquinone Safe?</b></p><p>Hydroquinone has a history of being both praised and scrutinized. In 1982, the <b>FDA</b> approved Hydroquinone as a safe and effective treatment for skin lightening at 2% concentrations. However, after discovering contamination issues in some products, the FDA pulled several from the market. Today, it is confirmed that <b>2% Hydroquinone</b> is safe for over-the-counter use when formulated correctly, as in COS DE BAHA\'s serum.</p><p><br></p><p><b>How It Works:</b></p><p>Hydroquinone begins working within four weeks, but consistent use over several months may be necessary for full results. Over time, this serum helps fade hyperpigmentation, giving you smoother, brighter skin.</p><p><br></p><p><b>Experience Smoother, Brighter Skin:</b></p><p>With COS DE BAHA’s Hydroquinone Brightening Serum, you can confidently address stubborn dark spots and achieve a more even-toned, glowing complexion.</p>', NULL, 0, 0, NULL, 1, '2024-10-01 16:12:26', '2024-10-01 16:12:26'),
+(30, 'CeraVe Skin Renewing Retinol Serum 30ml', 'cerave-skin-renewing-retinol-serum-30ml-30', 1, 0, NULL, NULL, 'P0030', 2100, 2750, 2530, 100, NULL, NULL, '<p>Retinol is a must-have ingredient for anyone looking to enhance their anti-aging skincare routine. Known for its powerful ability to smooth fine lines, wrinkles, and improve overall skin texture, a retinol serum is a game changer for achieving a youthful, radiant complexion. When choosing the perfect serum, seek out key ingredients like <b>ceramides</b> to help restore your skin\'s barrier and <b>hyaluronic acid</b> to maintain hydration. Since retinol can sometimes cause irritation during the adjustment period, it\'s best to ease into daily use gradually, giving your skin time to adapt. Look for soothing additions like <b>niacinamide </b>to calm the skin and ensure optimal results.</p><p><br></p><p><b>CeraVe Skin Renewing Retinol Serum: Anti-Aging Made Gentle</b></p><p>The <b>CeraVe Skin Renewing Retinol Serum</b> is a gentle yet effective formula designed to provide your skin with a wide range of anti-aging benefits. Packed with <b>hyaluronic acid </b>for deep hydration, <b>niacinamide </b>for calming, and three essential ceramides, this serum works hard to lock in moisture and restore your skin\'s protective barrier. It also features <b>MVE Technology</b>, which encapsulates ceramides for slow, sustained release, ensuring your skin stays nourished and protected long after application.</p><p><br></p><p><b>Key Benefits:</b></p><p><b>- Improves skin texture and radiance</b> for a smoother complexion</p><p><b>- MVE Technology:</b> Ensures slow release of ceramides, supporting your skin’s barrier long-term</p><p><b>- Encapsulated retinol:</b> Targets fine lines and wrinkles for visible anti-aging effects</p><p><b>- Three essential ceramides:</b> Lock in moisture and repair the skin’s barrier</p><p><b>- Hyaluronic acid: </b>Retains skin’s natural moisture</p><p><b>- Niacinamide:</b> Soothes and calms the skin</p><p><b>- Fragrance-free &amp; Non-comedogenic</b>, making it suitable for sensitive skin types</p><p><b>- Dermatologist-developed,</b> ensuring it meets high skincare standards</p><p><br></p><p><b>How to Use:</b></p><p>1. Apply the <b>CeraVe Retinol Serum</b> in small dots on areas of concern, such as fine lines or uneven texture.</p><p>2. Gently smooth the serum over your skin until fully absorbed. Follow with sunscreen if used in the morning.</p><p><br></p><p><b>Ingredients:</b></p><p>This innovative serum includes <b>Glycerin</b>, <b>Ceramide NP</b>, <b>Niacinamide</b>, <b>Retinol</b>, <b>Shea Butter</b>, <b>Hydrolyzed Hyaluronic Acid</b>, and more to deliver a balanced combination of hydration, skin-calming, and anti-aging benefits.&nbsp;</p><p><br></p><p>Transform your skin care routine with CeraVe\'s thoughtfully formulated retinol serum, and enjoy the journey to smoother, brighter skin.</p>', NULL, 0, 0, NULL, 1, '2024-10-01 16:40:27', '2024-10-01 16:40:27'),
+(31, 'Cerave Resurfacing Retinol Serum for Skin Barrier & Skin Smoothness (Imported)', 'cerave-resurfacing-retinol-serum-for-skin-barrier-&-skin-smoothness-(imported)-31', 1, 0, NULL, NULL, 'P0031', 2100, 2700, 2480, 100, NULL, NULL, '<p>Acne marks and uneven skin tone can linger long after breakouts have cleared, serving as unwelcome reminders of past flare-ups. To address these concerns, a gentle yet powerful resurfacing serum is key. Enter <b>CeraVe Resurfacing Retinol Serum</b>—a dermatologist-developed formula designed to reduce the appearance of post-acne marks (post-inflammatory hyperpigmentation), refine pores, and smooth skin texture without compromising the skin\'s protective barrier.</p><p><br></p><p>This innovative serum features <b>encapsulated retinol,</b> which works to resurface the skin and improve texture over time. Combined with<b> licorice root extract</b> to brighten the skin and t<b>hree essential ceramides</b>, it locks in moisture and reinforces your skin\'s natural barrier. Powered by <b>MVE Technology,</b> the serum delivers its beneficial ingredients gradually, supporting your skin\'s protective barrier long after application. Fast-absorbing and lightweight, this serum helps promote an even skin tone and a healthy-looking complexion.</p><p><br></p><p><b>Key Benefits:</b></p><p><b>- Reduces post-acne marks and minimizes pores</b> for a refined, even complexion.</p><p><b>- Restores skin\'s protective barrier</b> and improves smoothness.</p><p><b>- Encapsulated retinol:</b> Gently resurfaces skin for a smoother texture.</p><p><b>- Licorice root extract:</b> Brightens skin and reduces discoloration.</p><p><b>- Ceramides:</b> Strengthen and maintain the skin\'s natural barrier.</p><p><b>- Niacinamide:</b> Calms and soothes the skin, minimizing irritation.</p><p><b>- MVE Technology:</b> Ensures continuous, slow release of hydration and ceramides for long-lasting support.</p><p><b>- Non-comedogenic, paraben-free, and fragrance-free:</b> Suitable for sensitive skin.</p><p><br></p><p><b>How to Use:</b></p><p>1. Apply the <b>CeraVe Resurfacing Retinol Serum</b> evenly to the face once daily.</p><p>2. Avoid direct contact with the eyes and lips. If contact occurs, rinse thoroughly with water.</p><p>3. If any discomfort arises during initial use, space out applications to allow the skin to adjust.</p><p>4. Always apply sunscreen during the day when using this product to protect your skin.</p><p><br></p><p><b>Ingredients:</b></p><p>Aqua/water, Propanediol, Dimethicone, Niacinamide, Cetearyl Ethylhexanoate, Ammonium Polyacryloyldimethyl Taurate, Dipotassium Glycyrrhizate, Ceramide NP, Ceramide AP, Ceramide EOP, Retinol, Sodium Hyaluronate, Lecithin, Sodium Citrate, Cholesterol, Phenoxyethanol, and more—each carefully chosen to smooth, hydrate, and protect your skin.</p><p><br></p><p>Unlock the secret to smoother, more radiant skin with <b>CeraVe Resurfacing Retinol Serum</b>—a trusted ally in your journey to clearer, healthier-looking skin.</p>', NULL, 0, 0, NULL, 1, '2024-10-01 16:53:50', '2024-10-01 16:53:50'),
+(32, 'Beauty of Joseon Glow Serum Propolis & Niacinamide 30ml', 'beauty-of-joseon-glow-serum-propolis-&-niacinamide-30ml-32', 1, 0, NULL, NULL, 'P0032', 1100, 1620, 1400, 100, NULL, NULL, '<p>Unlock the secret to radiant, glowing \"honey skin\" with the <b>Beauty of Joseon Propolis Serum</b>. Renowned for their clean, herbal Korean formulations, Beauty of Joseon has crafted this serum with acne-prone skin in mind, offering a calming, healing solution for irritated breakouts. <b>Propolis</b>, known for its natural antiseptic and anti-inflammatory properties, not only soothes and calms but also encourages cell turnover to speed up healing and renewal of troubled skin.</p><p><br></p><p>The addition of <b>Niacinamide </b>works to brighten and revive dull complexions, while antioxidant-rich <b>Turmeric </b>fights against free radical damage, keeping your skin looking healthy, bouncy, and luminous.&nbsp;</p><p><br></p><p><b>Key Ingredients:</b></p><p><b>- Propolis Extract:</b> Soothes, heals, and improves skin regeneration.</p><p><b>- Niacinamide:</b> Brightens and rejuvenates the complexion.</p><p><b>- Turmeric Root Extract:</b> Antioxidant powerhouse that protects and revitalizes.</p><p><b>- Tea Tree Extract:</b> Aids in reducing acne and calming inflammation.</p><p><b>- Centella Asiatica Extract: </b>Soothes irritation and promotes healing.</p><p><br></p><p><b>Benefits:</b></p><p>- Calms and soothes irritated, acne-prone skin.</p><p>- Promotes cell turnover for faster healing.</p><p>- Brightens and evens out the complexion.</p><p>- Protects against free radical damage.</p><p>- Leaves skin healthy, supple, and glowing.</p><p><br></p><p><b>How to Use:</b></p><p>After cleansing and toning, apply a proper amount of the <b>Propolis Serum</b> to your face. Gently pat until fully absorbed for optimal results. For best results, use day and night.</p><p><br></p><p><b>Full Ingredient List:</b></p><p>Propolis Extract, Dipropylene Glycol, Glycerin, Butylene Glycol, Water, Niacinamide, 1,2-Hexanediol, Melia Azadirachta Flower Extract, Melia Azadirachta Leaf Extract, Sodium Hyaluronate, Curcuma Longa (Turmeric) Root Extract, Ocimum Sanctum Leaf Extract, Theobroma Cacao (Cocoa) Seed Extract, Melaleuca Alternifolia (Tea Tree) Extract, Centella Asiatica Extract, and more.</p><p><br></p><p>Achieve a clearer, brighter, and more radiant complexion with the healing power of <b>Beauty of Joseon Propolis Serum.</b></p>', NULL, 0, 0, NULL, 1, '2024-10-01 17:22:51', '2024-10-01 17:22:51'),
+(33, 'Cosrx AHA/BHA Clarifying Treatment Toner 50ml', 'cosrx-aha-bha-clarifying-treatment-toner-50ml-33', 1, 0, NULL, NULL, 'P0033', 400, 800, 650, 100, NULL, NULL, '<p><b style=\"font-weight: bold; line-height: inherit; color: rgb(85, 85, 85); font-family: Lato, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;\">Major Ingredients:&nbsp;</b><span style=\"color: rgb(85, 85, 85); font-family: Lato, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;\">Water, Salix Alba (Willow) Bark Water, Pyrus Malus (Apple) Fruit Water, Butylene Glycol, 1,2-Hexanediol, Sodium Lactate, Glycolic Acid, Betaine Salicylate, Allantoin, Panthenol, Ethyl Hexanedio</span><br></p>', NULL, 0, 0, NULL, 1, '2024-10-01 17:32:23', '2024-10-01 17:32:23');
 
 -- --------------------------------------------------------
 
@@ -2264,9 +2381,9 @@ INSERT INTO `products` (`id`, `name`, `slug`, `category_id`, `subcategory_id`, `
 --
 
 CREATE TABLE `productsizes` (
-  `id` int UNSIGNED NOT NULL,
-  `product_id` int NOT NULL,
-  `size_id` int NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2278,14 +2395,14 @@ CREATE TABLE `productsizes` (
 --
 
 CREATE TABLE `reviews` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ratting` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_id` int NOT NULL,
-  `customer_id` int NOT NULL,
-  `status` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(55) NOT NULL,
+  `ratting` varchar(4) NOT NULL,
+  `review` text NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `status` varchar(55) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2297,9 +2414,9 @@ CREATE TABLE `reviews` (
 --
 
 CREATE TABLE `roles` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2320,8 +2437,8 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 --
 
 CREATE TABLE `role_has_permissions` (
-  `permission_id` bigint UNSIGNED NOT NULL,
-  `role_id` bigint UNSIGNED NOT NULL
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -2334,9 +2451,14 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (3, 1),
 (4, 1),
 (5, 1),
+(5, 4),
 (6, 1),
+(6, 4),
 (7, 1),
+(7, 3),
+(7, 4),
 (8, 1),
+(8, 4),
 (9, 1),
 (10, 1),
 (11, 1),
@@ -2388,12 +2510,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (73, 1),
 (74, 1),
 (75, 1),
-(76, 1),
-(7, 3),
-(5, 4),
-(6, 4),
-(7, 4),
-(8, 4);
+(76, 1);
 
 -- --------------------------------------------------------
 
@@ -2402,16 +2519,23 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 --
 
 CREATE TABLE `shippings` (
-  `id` int UNSIGNED NOT NULL,
-  `order_id` int NOT NULL,
-  `customer_id` int NOT NULL,
-  `name` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `area` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `name` varchar(155) NOT NULL,
+  `phone` varchar(55) NOT NULL,
+  `address` varchar(256) DEFAULT NULL,
+  `area` varchar(256) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shippings`
+--
+
+INSERT INTO `shippings` (`id`, `order_id`, `customer_id`, `name`, `phone`, `address`, `area`, `created_at`, `updated_at`) VALUES
+(133, 134, 4, 'X', '01622862633', 'X', '70 Taka Inside Dhaka', '2024-10-06 15:13:19', '2024-10-06 15:13:19');
 
 -- --------------------------------------------------------
 
@@ -2420,10 +2544,10 @@ CREATE TABLE `shippings` (
 --
 
 CREATE TABLE `shipping_charges` (
-  `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount` int NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2433,8 +2557,8 @@ CREATE TABLE `shipping_charges` (
 --
 
 INSERT INTO `shipping_charges` (`id`, `name`, `amount`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'ঢাকার ভিতরে ৭০ টাকা', 70, '1', '2023-08-04 10:34:54', '2023-08-18 19:51:03'),
-(2, 'ঢাকার বাহিরে  ১৩৫ টাকা', 135, '1', '2023-08-04 10:35:57', '2024-05-27 12:14:31');
+(1, '70 Taka Inside Dhaka', 70, '1', '2023-08-04 10:34:54', '2024-09-22 19:56:24'),
+(2, '135 Taka Outside Dhaka', 135, '1', '2023-08-04 10:35:57', '2024-09-22 19:56:58');
 
 -- --------------------------------------------------------
 
@@ -2443,9 +2567,9 @@ INSERT INTO `shipping_charges` (`id`, `name`, `amount`, `status`, `created_at`, 
 --
 
 CREATE TABLE `sizes` (
-  `id` int UNSIGNED NOT NULL,
-  `sizeName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `sizeName` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2473,14 +2597,14 @@ INSERT INTO `sizes` (`id`, `sizeName`, `status`, `created_at`, `updated_at`) VAL
 --
 
 CREATE TABLE `sms_gateways` (
-  `id` bigint UNSIGNED NOT NULL,
-  `url` varchar(99) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `api_key` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `serderid` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `forget_pass` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password_g` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `url` varchar(99) DEFAULT NULL,
+  `api_key` varchar(155) DEFAULT NULL,
+  `serderid` varchar(155) DEFAULT NULL,
+  `order` varchar(11) DEFAULT NULL,
+  `forget_pass` varchar(11) DEFAULT NULL,
+  `password_g` varchar(11) DEFAULT NULL,
+  `status` varchar(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2499,12 +2623,12 @@ INSERT INTO `sms_gateways` (`id`, `url`, `api_key`, `serderid`, `order`, `forget
 --
 
 CREATE TABLE `social_media` (
-  `id` int UNSIGNED NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `color` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `icon` varchar(255) NOT NULL,
+  `link` varchar(155) NOT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2524,14 +2648,14 @@ INSERT INTO `social_media` (`id`, `title`, `icon`, `link`, `color`, `status`, `c
 --
 
 CREATE TABLE `subcategories` (
-  `id` int UNSIGNED NOT NULL,
-  `subcategoryName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int NOT NULL,
-  `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `meta_title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` tinyint NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `subcategoryName` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `image` text DEFAULT NULL,
+  `meta_title` varchar(191) DEFAULT NULL,
+  `meta_description` longtext DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2543,14 +2667,14 @@ CREATE TABLE `subcategories` (
 --
 
 CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint DEFAULT '0',
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `image` varchar(255) NOT NULL,
+  `status` tinyint(4) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2560,7 +2684,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$8Q7Z//nJi4JGSnKJiM0RJeNx0GMRn0xxWjJ0OHkoEG1vnBmFG6S7S', 'NdHbzBH5pTlHa9nXQfd0s0X7fVqvV30rCjlG853jONURI7FtfAHvXW3JIO5c', 'public/uploads/users/1707537558-faveicon.webp', 1, '2023-01-11 06:33:08', '2024-09-07 05:36:06'),
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$UHBCJv6KO9ulJHRCfyI3D.0g6D8E8Dg9J699VM4XYSy6pJZ8DJz1C', 'NdHbzBH5pTlHa9nXQfd0s0X7fVqvV30rCjlG853jONURI7FtfAHvXW3JIO5c', 'public/uploads/users/1707537558-faveicon.webp', 1, '2023-01-11 06:33:08', '2024-09-07 05:36:06'),
 (6, 'HB MEDUL', 'habibul5031@gmail.com', NULL, '$2y$10$O/YX84euUCyyFSFKyLPwkOga5pZXdPsvCsOqt7eQpAPEMeL.Rj8ti', 'qS5Fe1XOZ7buxpVhLGDqD9tqAXkgu45Q5YayGcBJGoPQ2go7WD07E9RIzPJk', 'public/uploads/users/1707537536-faveicon.webp', 1, '2024-02-10 03:58:57', '2024-02-23 13:17:11'),
 (8, 'Hi king', 'Ynd5031@gmail.com', NULL, '$2y$10$CnqMiQXZWQeoJ02ViQ5Gtu8CYs7BIRZH300s7KpR7Fjw.ByuhwfPC', NULL, 'public/uploads/users/1717644831-img-20240606-wa0011.webp', 1, '2024-06-06 09:33:51', '2024-06-06 09:33:51'),
 (9, 'Alvy Hassan Efty', 'alvyh6897@gmail.com', NULL, '$2y$10$cXRY1dXkyHGY54kdCRps7OQh0kn7GAqp0drUfR9X6IGNB40EArYyq', '4inr3OoJcqm8etZh1fuS04vsBoWQeHwru8nkZbfb95bYAmHeYBD0ZZS4X4PN', 'public/uploads/users/1725256909-add-a-subheading-(4).webp', 1, '2024-09-02 06:01:50', '2024-09-02 06:01:50');
@@ -2844,181 +2968,181 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `banner_categories`
 --
 ALTER TABLE `banner_categories`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
 --
 ALTER TABLE `campaigns`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `campaign_reviews`
 --
 ALTER TABLE `campaign_reviews`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `childcategories`
 --
 ALTER TABLE `childcategories`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `courierapis`
 --
 ALTER TABLE `courierapis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `create_pages`
 --
 ALTER TABLE `create_pages`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `general_settings`
 --
 ALTER TABLE `general_settings`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `google_tag_managers`
 --
 ALTER TABLE `google_tag_managers`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT for table `order_statuses`
 --
 ALTER TABLE `order_statuses`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `payment_gateways`
 --
 ALTER TABLE `payment_gateways`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `productcolors`
 --
 ALTER TABLE `productcolors`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `productimages`
 --
 ALTER TABLE `productimages`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `productsizes`
 --
 ALTER TABLE `productsizes`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shippings`
 --
 ALTER TABLE `shippings`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `sms_gateways`
 --
 ALTER TABLE `sms_gateways`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
