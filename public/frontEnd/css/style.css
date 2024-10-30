@@ -2985,7 +2985,7 @@ section.product-inner {
 }
 
 .pro_img {
-    height: 200px;
+    height: 280px;
     position: relative;
     overflow: hidden;
 }
@@ -4153,8 +4153,9 @@ ul.child-category {
 }
 
 .sidebar-menu ul li:hover>a {
-    background-color: #e1fff7;
-    color: #e50113;
+    background-color: #fcb800fc;
+    color: #202a20;
+    transition: 0.1s;
 }
 
 .sidebar-menu ul li:hover .sidebar-submenu {

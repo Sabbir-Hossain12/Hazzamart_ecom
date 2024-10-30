@@ -30,6 +30,13 @@ class FrontendController extends Controller
 {
     public function index()
     {
+        $newCategories = Category::where(['status' => 1, 'isNew' => 1])
+            ->select('id', 'name', 'image', 'slug', 'status')
+            ->get();
+        $featuredCategories = Category::where(['status' => 1, 'isFeatured' => 1])
+            ->select('id', 'name', 'image', 'slug', 'status')
+            ->get();
+//        dd($featuredCategories);
         // return "Welcome to Kenakatar.com";
         $frontcategory = Category::where(['status' => 1])
             ->select('id', 'name', 'image', 'slug', 'status')
@@ -52,15 +59,20 @@ class FrontendController extends Controller
         $hotdeal_top = Product::where(['status' => 1, 'topsale' => 1])
             ->orderBy('id', 'DESC')
             ->select('id', 'name', 'slug', 'new_price', 'old_price')
-            ->with('prosizes', 'procolors')
-            ->limit(12)
+            ->with('prosizes', 'procolors','image','images')
+            ->limit(8)
             ->get();
-        // return $hotdeal_top;
+        $offerProducts = Product::where(['status' => 1, 'isOffer' => 1])
+            ->orderBy('id', 'DESC')
+            ->select('id', 'name', 'slug', 'new_price', 'old_price')
+            ->with('prosizes', 'procolors','image','images')
+            ->limit(8)
+            ->get();
 
         $hotdeal_bottom = Product::where(['status' => 1, 'topsale' => 1])
             ->select('id', 'name', 'slug', 'new_price', 'old_price')
-            ->skip(12)
-            ->limit(12)
+            ->skip(8)
+            ->limit(8)
             ->get();
 
         $homeproducts = Category::where(['front_view' => 1, 'status' => 1])
@@ -72,7 +84,7 @@ class FrontendController extends Controller
                 return $query;
             });
         // return $homeproducts;
-        return view('frontEnd.layouts.pages.index', compact('sliders', 'frontcategory', 'hotdeal_top', 'hotdeal_bottom', 'homeproducts', 'sliderbottomads', 'footertopads'));
+        return view('frontEnd.layouts.pages.index', compact('sliders', 'frontcategory', 'hotdeal_top', 'hotdeal_bottom', 'homeproducts', 'sliderbottomads', 'footertopads','newCategories','featuredCategories','offerProducts'));
     }
 
     public function hotdeals()

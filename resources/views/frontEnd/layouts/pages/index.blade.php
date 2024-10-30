@@ -29,18 +29,41 @@
             text-decoration-color: red;
             opacity: .7;
         }
+    /*  Image */
+        /* Image styling with transition for zoom effect */
+        .pro_img .pro-img {
+            width: 100%;
+            transition: transform 0.3s ease; /* Smooth transition */
+        }
+
+        /* Hover effect to zoom the image */
+        .pro_img .pro-img:hover {
+            cursor: pointer;
+            transform: scale(1.1); /* Scale up the image */
+        }
+
+
+        @media only screen and (min-width:800px) and (max-width:1920px) {
+
+
+            .product-container {
+                padding: 15px 8rem 36px 8rem !important;
+            }
+        }
+        
+        
 
     </style>
 @endpush @section('content')
-    <section class="slider-section">
+    <section class="slider-section mt-3">
         <div class="container-fluid">
             <div class="row">
 
                 {{--  Category Sidebar--}}
                 <div class="col-sm-3 hidetosm">
-                    <div class="rounded-top text-center d-none d-lg-block" style="background-color:#121164;">
-                        <h5 class="py-2 text-white">CATEGORYS</h5>
-                    </div>
+{{--                    <div class="rounded-top text-center d-none d-lg-block" style="background-color:#fcb800fc;">--}}
+{{--                        <h5 class="py-2 text-dark" style="font-weight: 500; font-size: 1.3rem;">Shop By Category</h5>--}}
+{{--                    </div>--}}
                     <div class="sidebar-menu">
                         <ul class="hideshow">
                             @foreach ($menucategories as $key => $category)
@@ -50,6 +73,7 @@
                                         {{ $category->name }}
 
                                     </a>
+                                    
                                     <ul class="sidebar-submenu">
                                         @foreach ($category->subcategories as $key => $subcategory)
                                             <li>
@@ -68,6 +92,7 @@
                                             </li>
                                         @endforeach
                                     </ul>
+                                    
                                 </li>
                             @endforeach
                         </ul>
@@ -125,9 +150,9 @@
 
 {{-- Best Selling Start   --}}
     <section class="homeproduct">
-        <div class="container">
+        <div class="container product-container">
             <div class="row">
-                <div class="col-sm-12 " style="padding: 0 8rem;">
+                <div class="col-sm-12">
                     <div class="sec_title">
                         <h3 class="section-title-header">
                             <div class="timer_inner">
@@ -143,119 +168,202 @@
                     </div>
                 </div>
                 
-                <div class="col-sm-12" style="padding: 15px 8rem 36px 8rem;">
+                <div class="col-sm-12">
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
                         @foreach ($hotdeal_top as $key => $value)
-                            <div class="col-3">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="{{route('product',$value->slug)}}">
                                 <div class="pro_img">
-                                <img src="{{ asset($value->image->image) }}" alt=""/>
+                                    
+                                    @if(count($value->images) > 1) 
+                                    <img class="pro-slider-img{{$value->id}}" src="{{asset($value->images->get(1)->image)}}" hidden="">
+                                    @endif
+                                    <img class="pro-img pro-img{{$value->id}}" onmouseout="reset_img({{$value->id}})" onmouseover="pro_img({{$value->id}})" src="{{ asset($value->image->image) }}" alt=""/>
                                 </div>
-                                <div class="pro_content ">
+                                
+                                <div class="pro_content">
                                     <p class="text-center my-2 pro-title">{{ $value->name }}</p>
                                     <p class="text-center my-2 d-flex justify-content-center align-items-center gap-2">
                                         <span class="text-decoration-line-through pro-old-price">{{$value->old_price}}Tk</span>
                                         <span class="pro-title">{{ $value->new_price }}Tk</span>
                                     </p>
                                 </div>
+                                    
+                                </a>
+                                
                             </div>
                         @endforeach
                     </div>
                 </div>
-                <!--<div class="col-sm-12">-->
-                <!--   <a href="{{ route('hotdeals') }}" class="view_more_btn" style="float:left">View More</a> -->
-                <!--</div>-->
+                <div class="col-sm-12 text-center mt-5 px-4">
+                <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                </div>
             </div>
         </div>
     </section>
 {{-- Best Selling End   --}}
-    @foreach ($homeproducts as $homecat)
-        <section class="homeproduct">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12" style="display: flex;justify-content: space-between;">
-                        <div class="sec_title">
-                            <h3 class="section-title-header">
-                                <span class="section-title-name">{{ $homecat->name }}</span>
 
-                            </h3>
-                        </div>
-                        <div class="show_more_btn pt-2">
-                            <a href="{{ route('category', $homecat->slug) }}" class="view_more_btn">View More</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="product_sliders">
-                            @foreach ($homecat->products as $key => $value)
-                                <div class="product_item wist_item">
-                                    <div class="product_item_inner">
-                                        @if($value->old_price)
-                                            <div class="sale-badge">
-                                                <div class="sale-badge-inner">
-                                                    <div class="sale-badge-box">
-                                            <span class="sale-badge-text">
-                                                <p>@php $discount=(((($value->old_price)-($value->new_price))*100) / ($value->old_price)) @endphp {{ number_format($discount, 0) }}%</p>
-                                                ছাড়
-                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        <div class="pro_img">
-                                            <a href="{{ route('product', $value->slug) }}">
-                                                <img src="{{ asset($value->image ? $value->image->image : '') }}"
-                                                     alt="{{ $value->name }}"/>
-                                            </a>
-                                        </div>
-                                        <div class="pro_des">
-                                            <div class="pro_name">
-                                                <a
-                                                        href="{{ route('product', $value->slug) }}">{{ Str::limit($value->name, 80) }}</a>
-                                            </div>
-                                            <div class="pro_price">
-                                                <p>
-                                                    @if ($value->old_price)
-                                                        <del>৳ {{ $value->old_price }}</del>
-                                                    @endif
-
-                                                    ৳ {{ $value->new_price }}
-
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    @if (!$value->prosizes->isEmpty() || !$value->procolors->isEmpty())
-                                        <div class="pro_btn">
-
-                                            <div class="cart_btn order_button">
-                                                <a href="{{ route('product', $value->slug) }}"
-                                                   class="addcartbutton">অর্ডার করুন </a>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="pro_btn">
-
-                                            <form action="{{ route('cart.store') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{ $value->id }}"/>
-                                                <input type="hidden" name="qty" value="1"/>
-                                                <button type="submit">অর্ডার করুন</button>
-                                            </form>
-                                        </div>
-                                    @endif
+    {{-- Featured Collection Category Start   --}}
+    <section class="homeproduct">
+        <div class="container product-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="sec_title">
+                        <h3 class="section-title-header">
+                            <div class="timer_inner">
+                                <div class="">
+                                    <span class="section-title-name">Featured Collection</span>
                                 </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
 
+                                <div class="">
+                                    {{--                                    <div class="offer_timer" id="simple_timer"></div>--}}
+                                </div>
+                            </div>
+                        </h3>
                     </div>
                 </div>
-            </div>
-        </section>
-    @endforeach
 
+                <div class="col-sm-12">
+                    <div class="row" style="column-gap: 0;
+                row-gap: 5rem;">
+                        @foreach ($featuredCategories as $key => $value)
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="{{route('category',$value->slug)}}">
+                                    <div class="pro_img">
+                                        <img class="pro-img" src="{{ asset($value->image) }}" alt=""/>
+                                    </div>
+
+                                    <div class="pro_content">
+                                        <p class="text-center my-2 pro-title">{{ $value->name }}</p>
+{{--                                        <p class="text-center my-2 d-flex justify-content-center align-items-center gap-2">--}}
+{{--                                            <span class="text-decoration-line-through pro-old-price">{{$value->old_price}}Tk</span>--}}
+{{--                                            <span class="pro-title">{{ $value->new_price }}Tk</span>--}}
+{{--                                        </p>--}}
+                                    </div>
+
+                                </a>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center mt-5 px-4">
+                    <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- Featured Collection Category End   --}}
+    
+    {{-- Offer Products Start   --}}
+    <section class="homeproduct">
+        <div class="container product-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="sec_title">
+                        <h3 class="section-title-header">
+                            <div class="timer_inner">
+                                <div class="">
+                                    <span class="section-title-name"> Offer Items</span>
+                                </div>
+
+                                <div class="">
+                                    {{--                                    <div class="offer_timer" id="simple_timer"></div>--}}
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="row" style="column-gap: 0;
+                row-gap: 5rem;">
+                        @foreach ($offerProducts as $key => $value)
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="{{route('product',$value->slug)}}">
+                                    <div class="pro_img">
+
+                                        @if(count($value->images) > 1)
+                                            <img class="pro-slider-img{{$value->id}}" src="{{asset($value->images->get(1)->image)}}" hidden="">
+                                        @endif
+                                        <img class="pro-img pro-img{{$value->id}}" onmouseout="reset_img({{$value->id}})" onmouseover="pro_img({{$value->id}})" src="{{ asset($value->image->image) }}" alt=""/>
+                                    </div>
+
+                                    <div class="pro_content">
+                                        <p class="text-center my-2 pro-title">{{ $value->name }}</p>
+                                        <p class="text-center my-2 d-flex justify-content-center align-items-center gap-2">
+                                            <span class="text-decoration-line-through pro-old-price">{{$value->old_price}}Tk</span>
+                                            <span class="pro-title">{{ $value->new_price }}Tk</span>
+                                        </p>
+                                    </div>
+
+                                </a>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center mt-5 px-4">
+                    <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- Offer Products End   --}}
+
+
+    {{-- New Collection Category Start   --}}
+    <section class="homeproduct">
+        <div class="container product-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="sec_title">
+                        <h3 class="section-title-header">
+                            <div class="timer_inner">
+                                <div class="">
+                                    <span class="section-title-name">New Collection</span>
+                                </div>
+
+                                <div class="">
+                                    {{--                                    <div class="offer_timer" id="simple_timer"></div>--}}
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="row" style="column-gap: 0;
+                row-gap: 5rem;">
+                        @foreach ($newCategories as $key => $value)
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="{{route('category',$value->slug)}}">
+                                    <div class="pro_img">
+                                        <img class="pro-img" src="{{ asset($value->image) }}" alt=""/>
+                                    </div>
+
+                                    <div class="pro_content">
+                                        <p class="text-center my-2 pro-title">{{ $value->name }}</p>
+                                        {{--                                        <p class="text-center my-2 d-flex justify-content-center align-items-center gap-2">--}}
+                                        {{--                                            <span class="text-decoration-line-through pro-old-price">{{$value->old_price}}Tk</span>--}}
+                                        {{--                                            <span class="pro-title">{{ $value->new_price }}Tk</span>--}}
+                                        {{--                                        </p>--}}
+                                    </div>
+
+                                </a>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center mt-5 px-4">
+                    <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- New Collection Category End   --}}
 @endsection @push('script')
     <script src="{{ asset('public/frontEnd/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('public/frontEnd/js/jquery.syotimer.min.js') }}"></script>
@@ -372,4 +480,30 @@
             periodInterval: 1,
         });
     </script>
+                
+     <script>
+
+         // Variable to store the original image source
+         let originalSrc = {};
+
+         function pro_img(id) {
+             // Store the original src in a variable only if it hasn’t been saved yet
+             if (!originalSrc[id]) {
+                 originalSrc[id] = $('.pro-img' + id).attr('src');
+             }
+
+             // Get the new source from the slider image and set it
+             let p_img = $('.pro-slider-img' + id).attr('src');
+             $('.pro-img' + id).attr('src', p_img);
+         }
+
+         function reset_img(id) {
+             // Reset the image source to the original one
+             if (originalSrc[id]) {
+                 $('.pro-img' + id).attr('src', originalSrc[id]);
+             }
+         }
+         
+   
+     </script>
 @endpush
