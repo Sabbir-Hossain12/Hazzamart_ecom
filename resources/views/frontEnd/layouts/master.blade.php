@@ -702,6 +702,23 @@
                $("body").css("overflow-y", "auto");
             })
         </script>
+        
+        <script>
+
+            //Toggle Search Bar Big Screen
+            $(document).ready(function () {
+
+                $('#searchToggleIcon').on('click',function () 
+                {
+                    // $('.search_result').toggleClass('');
+
+                    $('#nav-item').toggle();
+                    $('#pro-search-form').toggleClass('d-none');
+                    
+                });
+
+            });
+        </script>
  
     </body>
 </html>

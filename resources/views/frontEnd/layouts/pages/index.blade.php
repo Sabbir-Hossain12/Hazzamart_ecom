@@ -64,13 +64,15 @@
 {{--                    <div class="rounded-top text-center d-none d-lg-block" style="background-color:#fcb800fc;">--}}
 {{--                        <h5 class="py-2 text-dark" style="font-weight: 500; font-size: 1.3rem;">Shop By Category</h5>--}}
 {{--                    </div>--}}
-                    <div class="sidebar-menu">
+                    <div class="sidebar-menu pt-2">
                         <ul class="hideshow">
                             @foreach ($menucategories as $key => $category)
                                 <li>
                                     <a href="{{ route('category', $category->slug) }}">
                                         <img src="{{ asset($category->image) }}" alt=""/>
                                         {{ $category->name }}
+                                       
+                                        <span class=" @if($key == 0) cat-label cat-label-hot pin-bottom @endif @if($key == 1) cat-label cat-label-new pin-bottom @endif">@if($key == 0) HOT @endif @if($key == 1) New @endif</span>
 
                                     </a>
                                     

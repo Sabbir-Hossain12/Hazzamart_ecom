@@ -7,6 +7,7 @@
 </style>
 
 
+
 @php $subtotal = Cart::instance('shopping')->subtotal(); @endphp
 <div class="mobile-menu">
     <div class="mobile-menu-logo">
@@ -93,7 +94,7 @@
 
 
 
-    <div class="main-header">
+    <div class="main-header" id="mainHeader">
         <!-- header to end -->
         <div class="logo-area">
             <div class="container" style="padding: 0 6rem 0 6rem">
@@ -103,7 +104,7 @@
                             <div class="main-logo">
                                 <a href="{{route('home')}}"><img src="{{asset($generalsetting->white_logo)}}" alt="" /></a>
                             </div>
-                            <div class="main-search">
+                            <div class="main-search" id="nav-item">
                                 <nav class="navbar navbar-expand-lg">
                                     <div class="container-fluid">
                                         
@@ -111,30 +112,52 @@
                                             <ul class="navbar-nav gap-2">
                                                 
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                                    <a class="nav-link underline-hover-effect  @if(Request::is('/')) active text-decoration-underline  @endif" aria-current="page" href="{{route('home')}}">Home</a>
                                                 </li>
 
 
                                                 <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <a class="nav-link underline-hover-effect dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                         Products
                                                     </a>
-                                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                                    </ul>
+                                                    <div class="dropdown-menu w-100 mt-0 p-3" aria-labelledby="navbarDropdown" style="
+                                                            
+                                                            right: 800px!important;
+                                                            width: 800px!important;
+                                                            border-top-left-radius: 0;
+                                                            border-top-right-radius: 0;">
+                                                        <div class="container">
+                                                            <div class="row my-4">
+                                                                
+                                                                @forelse($menucategories->take(4) as $key => $category) 
+                                                                <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
+                                                                    <div class="list-group list-group-flush">
+                                                                        <a href="{{route('category', $category->slug)}}" class="list-group-item list-group-item-action fw-semibold">{{$category->name}}</a>
+                                                                        @forelse($category->subcategories->take(6) as $subcategory)
+                                                                        <a href="{{route('subcategory', $subcategory->slug)}}" class="list-group-item list-group-item-action">{{$subcategory->subcategoryName}}</a>
+                                                                            
+                                                                        @empty
+                                                                        @endforelse
+                                                                      
+                                                                    </div>
+                                                                </div>
+                                                                @empty
+                                                                @endforelse
+                                                              
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 
                                                 
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">Contact</a>
+                                                    <a class="nav-link underline-hover-effect @if(Request::is('page/contact')) active text-decoration-underline  @endif" href="{{route('page','contact')}}">Contact</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">About</a>
+                                                    <a class="nav-link underline-hover-effect @if(Request::is('page/about')) active text-decoration-underline  @endif" href="{{route('page','about')}}">About</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#">Best Selling</a>
+                                                    <a class="nav-link underline-hover-effect @if(Request::is('/best-selling')) active text-decoration-underline  @endif" href="">Best Selling</a>
                                                 </li>
                                                 
                                                 
@@ -148,19 +171,19 @@
                                
                             </div>
                             
-{{--                            <div class="main-search">--}}
-{{--                                <form action="{{route('search')}}">--}}
-{{--                                    <input type="text" placeholder="Search Product..." class="search_keyword search_click" name="keyword" />--}}
-{{--                                    <button>--}}
-{{--                                        <i data-feather="search"></i>--}}
-{{--                                    </button>--}}
-{{--                                </form>--}}
-{{--                                <div class="search_result"></div>--}}
-{{--                            </div>--}}
+                            <div class="main-search d-none" id="pro-search-form">
+                                <form action="{{route('search')}}">
+                                    <input type="text" placeholder="Search Product..." class="search_keyword search_click" name="keyword" />
+                                    <button>
+                                        <i data-feather="search"></i>
+                                    </button>
+                                </form>
+                                <div class="search_result"></div>
+                            </div>
                             <div class="header-list-items">
                                 <ul>
                                     <li class="track_btn">
-                                        <a href="{{route('customer.order_track')}}"> <i class="fa fa-magnifying-glass"></i></a>
+                                        <a href="javascript:void(0)" class="nav-link" id="searchToggleIcon"> <i class="fa fa-magnifying-glass"></i></a>
                                     </li>
                                     
                                     <li class="cart-dialog" id="cart-qty">
@@ -231,25 +254,35 @@
 
 
     </div>
+    
+    
+    
     <!-- main-header end -->
 </header>
 
 <script>
     let lastScrollTop = 0; // Track the last scroll position
-    document.addEventListener('scroll', function() {
+    document.addEventListener('scroll', function() 
+    {
         const topBar = document.querySelector('.top-barhead');
         const currentScroll = window.scrollY; // Current scroll position
 
-        if (currentScroll > lastScrollTop) {
+        if (currentScroll > lastScrollTop) 
+        {
             // Scrolling down
             topBar.style.display = 'none';
-        } else {
+        }
+        else 
+        {
             // Scrolling up
             topBar.style.display = 'block';
         }
 
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
+    
+  
+    
    
 
 </script>
