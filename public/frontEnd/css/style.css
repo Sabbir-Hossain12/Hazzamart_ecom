@@ -933,6 +933,9 @@ section.slider-section {
     background: #fff;
     /*margin-bottom: 10px;*/
     padding: 2rem 0;
+
+    /*opacity: 0; !* Initially hidden *!*/
+    /*transition: opacity 0.5s ease-in-out; !* Smooth fade *!*/
 }
 
 .category-section.section-padding {

@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="{{asset('public/frontEnd/css/responsive.css')}}" />
         <link rel="stylesheet" href="{{asset('public/frontEnd/css/main.css')}}" />
         <link rel="stylesheet" href="{{asset('public/frontEnd/css/cart-box.css')}}" />
+        
  
 
         @foreach($pixels as $pixel)
@@ -403,6 +404,8 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         {!! Toastr::message() !!} @stack('script')
+
+    <script src="{{asset('public/frontEnd/js/fadescroll.min.js')}}"></script>
         <script>
             $(".quick_view").on("click", function () {
                 var id = $(this).data("id");
@@ -758,6 +761,23 @@
                 });
 
             });
+            
+            
+            //Fade out animation on page visit
+            // $(document).ready(function() {
+            //     // Check if elements are visible when scrolling
+            //     $(window).on('scroll', function() {
+            //         $('.homeproduct').each(function() {
+            //             var elementTop = $(this).offset().top;
+            //             var windowBottom = $(window).scrollTop() + $(window).height();
+            //
+            //             // Fade in if the element is in the viewport
+            //             if (windowBottom > elementTop) {
+            //                 $(this).animate({ opacity: 1 }, 50); // Adjust duration as needed
+            //             }
+            //         });
+            //     });
+            // });
         </script>
  
     </body>

@@ -37,7 +37,8 @@
         }
 
         /* Hover effect to zoom the image */
-        .pro_img .pro-img:hover {
+        .pro_img .pro-img:hover 
+        {
             cursor: pointer;
             transform: scale(1.1); /* Scale up the image */
         }
@@ -127,7 +128,7 @@
 
 
     {{--Top Categories Start--}}
-    <section class="homeproduct" >
+    <section class="homeproduct">
         <div class="container">
             <div class="row">
 
@@ -135,7 +136,7 @@
                 <div class="col-12 category-container">
                     <div class="topcategory">
                         @foreach ($menucategories->take(12) as $key => $value)
-                            <div class="cat_item text-center shadow-sm">
+                            <div class="cat_item text-center shadow-sm fade-effect"  fade-direction="left" fade-time="1">
                                 <div class="cat_img">
                                    
                                     <i class="fa-solid {{$value->category_icon}} category-svg"></i>
@@ -181,7 +182,7 @@
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
                         @foreach ($hotdeal_top->take(8) as $key => $value)
-                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 fade-effect"   fade-direction="left" fade-time="1">
                                 <a href="{{route('product',$value->slug)}}">
                                 <div class="pro_img">
                                     
@@ -237,7 +238,7 @@
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
                         @foreach ($featuredCategories->take(8) as $key => $value)
-                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 fade-effect"   fade-direction="left" fade-time="1">
                                 <a href="{{route('category',$value->slug)}}">
                                     <div class="pro_img">
                                         <img class="pro-img" src="{{ asset($value->image) }}" alt=""/>
@@ -289,7 +290,7 @@
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
                         @foreach ($offerProducts->take(8) as $key => $value)
-                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 fade-effect" fade-direction="left" fade-time="1" >
                                 <a href="{{route('product',$value->slug)}}">
                                     <div class="pro_img">
 
@@ -346,7 +347,7 @@
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
                         @foreach ($newCategories->take(8) as $key => $value)
-                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 fade-effect" fade-direction="left" fade-time="1">
                                 <a href="{{route('category',$value->slug)}}">
                                     <div class="pro_img">
                                         <img class="pro-img" src="{{ asset($value->image) }}" alt=""/>
