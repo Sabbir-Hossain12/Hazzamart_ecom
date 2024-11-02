@@ -31,6 +31,7 @@
         <link rel="stylesheet" href="{{asset('public/frontEnd/css/style.css')}}" />
         <link rel="stylesheet" href="{{asset('public/frontEnd/css/responsive.css')}}" />
         <link rel="stylesheet" href="{{asset('public/frontEnd/css/main.css')}}" />
+        <link rel="stylesheet" href="{{asset('public/frontEnd/css/cart-box.css')}}" />
  
 
         @foreach($pixels as $pixel)
@@ -423,6 +424,32 @@
                 }
             });
         </script>
+    {{-- Cart Side Menu Start--}}
+    <script>
+        $(".cart-toggle").on("click", function () {
+            $("#page-overlay").show();
+            $(".cart-menu").addClass("active");
+        });
+
+        $("#page-overlay").on("click", function () {
+            $("#page-overlay").hide();
+            $(".cart-menu").removeClass("active");
+            $(".feature-products").removeClass("active");
+        });
+
+        $(".mobile-menu-close").on("click", function () {
+            $("#page-overlay").hide();
+            $(".cart-menu").removeClass("active");
+        });
+
+        $(".mobile-filter-toggle").on("click", function () {
+            $("#page-overlay").show();
+            $(".feature-products").addClass("active");
+        });
+    </script>
+    {{-- Cart Side Menu End--}}
+    
+    
         <!-- quick view end -->
         <!-- cart js start -->
         <script>
@@ -677,6 +704,7 @@
         </script>
 
         <script> 
+            
 
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 50) {
@@ -710,9 +738,9 @@
 
                 $('#searchToggleIcon').on('click',function () 
                 {
-                    // $('.search_result').toggleClass('');
 
                     $('#nav-item').toggle();
+                    
                     $('#pro-search-form').toggleClass('d-none');
                     
                 });

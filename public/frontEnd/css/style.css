@@ -439,6 +439,12 @@ li.Newsletter i {
     color: #fff;
 }
 
+.cursor-pointer:hover 
+{
+    cursor: pointer;
+}
+
+
 .mobile-nav li a {
     text-transform: capitalize;
     padding: 8px 15px;
@@ -924,10 +930,9 @@ section.slider-section {
 
 .homeproduct {
     padding-bottom: 0px;
-    padding-top: 0px;
     background: #fff;
     /*margin-bottom: 10px;*/
-    padding: 10px 0;
+    padding: 2rem 0;
 }
 
 .category-section.section-padding {
@@ -4055,6 +4060,7 @@ ul.child-category {
     text-align: center;
     padding: 5px 0;
     text-transform: capitalize;
+    
 }
 
 .cat_item {
@@ -4388,20 +4394,26 @@ td.tfoot_bg {
 
 .cat-icon-text-title
 {
-    font-size: 1.1rem !important;
+    font-size: 1.2rem !important;
     font-weight: 500;
     letter-spacing: 0.5px;
     line-height: 20px;
     margin: 10px 0;
     transition: .3s;
     margin-bottom: 14px;
+    white-space: normal;      /* Prevents text from wrapping to the next line */
+    overflow: hidden;         /* Hides any overflow */
+    /*text-overflow: ellipsis;  !* Adds ellipsis (...) to indicate overflow *!*/
+    max-width: 100%;          /* Ensures it doesn't exceed container width */
 }
-.topcategory {
+.topcategory 
+{
     display: grid;
     grid-template-columns: repeat(6,1fr);
     grid-gap: 15px;
 }
-.product_sliders {
+.product_sliders 
+{
     display: grid;
     grid-template-columns: repeat(6,1fr);
     grid-gap: 15px;

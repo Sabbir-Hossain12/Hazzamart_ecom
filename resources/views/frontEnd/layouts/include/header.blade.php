@@ -186,10 +186,8 @@
                                         <a href="javascript:void(0)" class="nav-link" id="searchToggleIcon"> <i class="fa fa-magnifying-glass"></i></a>
                                     </li>
                                     
-                                    <li class="cart-dialog" id="cart-qty">
-                                       
-                                        
-                                        <p class="margin-shopping">
+                                    <li class="cart-dialog cart-toggle cursor-pointer" id="cart-qty">
+                                        <p class="margin-shopping" id="shoppingIcon">
                                             <svg class="icon icon-cart" style="height: 40px ; width: 40px" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
                                                 <path fill="currentColor" fill-rule="evenodd" d="M20.5 6.5a4.75 4.75 0 00-4.75 4.75v.56h-3.16l-.77 11.6a5 5 0 004.99 5.34h7.38a5 5 0 004.99-5.33l-.77-11.6h-3.16v-.57A4.75 4.75 0 0020.5 6.5zm3.75 5.31v-.56a3.75 3.75 0 10-7.5 0v.56h7.5zm-7.5 1h7.5v.56a3.75 3.75 0 11-7.5 0v-.56zm-1 0v.56a4.75 4.75 0 109.5 0v-.56h2.22l.71 10.67a4 4 0 01-3.99 4.27h-7.38a4 4 0 01-4-4.27l.72-10.67h2.22z"></path>
                                             </svg>
@@ -259,6 +257,75 @@
     
     <!-- main-header end -->
 </header>
+
+{{--Cart Box--}}
+
+<div class="cart-menu  shadow-sm" style="background:white">
+    <div class="mobile-menu-logo">
+
+        <div class="logo-image">
+            {{--            <img src="{{asset($generalsetting->dark_logo)}}" alt="" />--}}
+            <h3 class="card-title">Shopping Cart ({{Cart::instance('shopping')->count()}})</h3>
+        </div>
+
+        <div class="mobile-menu-close">
+            <i class="fa fa-times" style="font-size:18px"></i>
+        </div>
+
+    </div>
+
+
+    <div class="cart-item-list">
+        
+        @if(Cart::instance('shopping')->content()->count() == 0)
+            <div class="text-center p-3">
+            <h3 class="cart__empty-text">Your Cart is Empty</h3>
+            <button class="btn btn-success mt-4 continue-shop-btn">Continue Shopping</button>
+            <p class="cart__login-title h4 text-center mt-3">Have an account?</p>
+                
+            <p class="cart__login-paragraph text-center h5">
+                <a href="{{route('customer.login')}}" class="text-decoration-underline">Log in</a> to check out faster.
+            </p>
+            </div>
+            
+            
+       
+        @else
+        @forelse(Cart::instance('shopping')->content() as $key=>$value)
+            <div class="cart-item-details my-2 d-flex justify-content-between align-items-center gap-3">
+                <div class="cart-item-description">
+                    <img class="mx-2" src="{{asset($value->options->image)}}" height="70px" width="70px" alt="">
+                    <div class="cart-item-title" >
+                        <h2 style="font-size: 13px;
+                                    color: black;
+                            line-height: 24px; font-weight: bold;">Fresh Indian Orange </h2>
+                        <p>{{$value->qty}} X  <span>৳{{$value->price}}</span></p>
+                    </div>
+                </div>
+                {{--            <i class="fa-solid fa-x"></i>--}}
+                <button class="remove-cart cart_remove" data-id="{{$value->rowId}}"><i data-feather="x"></i></button>
+            </div>
+            <hr>
+        @empty
+        @endforelse
+        @endif
+       
+    </div>
+
+    @if(Cart::instance('shopping')->content()->count() == 0)
+    @else
+    <div class="cart-buttons">
+        <div class="cart-price">
+            <p>{{Cart::instance('shopping')->count()}} Product</p>
+            <span>{{$subtotal}}</span>
+        </div>
+
+        <div class="text-center">
+            <a href="{{route('customer.checkout')}}" class="btns default_btn mb-2 f-w d-block btn btn-danger">Checkout</a>
+        </div>
+    </div>
+    @endif
+</div>
 
 <script>
     let lastScrollTop = 0; // Track the last scroll position

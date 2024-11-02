@@ -42,14 +42,23 @@
     height: 75px;
     text-align: center;
 }
+
+    .cat-icon-text-title
+    {
+        font-size: 0.8rem !important;
+    }
     
-    .topcategory {
-        padding:0px 20px;
-     grid-template-columns: repeat(2,1fr);
+    .topcategory 
+    { 
+        /*padding:0px 20px;*/
+     grid-template-columns: repeat(3, minmax(100px, 1fr));
+        grid-gap: 6px;
    }
+    
     .payment-method-wrappers {
         grid-template-columns: repeat(2, 1fr);
     }
+    
     .filter_sort {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -57,6 +66,7 @@
         padding: 0 6px;
         margin-top: 12px;
     }
+    
     .filter_sidebar {
         position: fixed;
         visibility: hidden;

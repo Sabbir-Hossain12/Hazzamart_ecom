@@ -43,12 +43,19 @@
         }
 
 
-        @media only screen and (min-width:800px) and (max-width:1920px) {
-
-
-            .product-container {
+        @media only screen and (min-width:800px) and (max-width:1920px) 
+        {
+            .product-container 
+            {
                 padding: 15px 8rem 36px 8rem !important;
             }
+            
+            .category-container
+            {
+                padding: 36px 8rem 36px 8rem !important;
+            }
+
+          
         }
         
         
@@ -125,7 +132,7 @@
             <div class="row">
 
 
-                <div class="col-sm-12" style="padding: 36px 8rem 36px 8rem;">
+                <div class="col-12 category-container">
                     <div class="topcategory">
                         @foreach ($menucategories as $key => $value)
                             <div class="cat_item text-center shadow-sm">
