@@ -29,9 +29,11 @@
             text-decoration-color: red;
             opacity: .7;
         }
+        
     /*  Image */
         /* Image styling with transition for zoom effect */
-        .pro_img .pro-img {
+        .pro_img .pro-img 
+        {
             width: 100%;
             transition: transform 0.3s ease; /* Smooth transition */
         }
@@ -55,8 +57,6 @@
             {
                 padding: 36px 8rem 36px 8rem !important;
             }
-
-          
         }
         
         
@@ -207,7 +207,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 text-center mt-5 px-4">
-                <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                <a href="{{ route('bestselling') }}" class="btn btn-md btn-success text-light" >View More</a>
                 </div>
             </div>
         </div>
@@ -491,29 +491,5 @@
         });
     </script>
                 
-     <script>
-
-         // Variable to store the original image source
-         let originalSrc = {};
-
-         function pro_img(id) {
-             // Store the original src in a variable only if it hasn’t been saved yet
-             if (!originalSrc[id]) {
-                 originalSrc[id] = $('.pro-img' + id).attr('src');
-             }
-
-             // Get the new source from the slider image and set it
-             let p_img = $('.pro-slider-img' + id).attr('src');
-             $('.pro-img' + id).attr('src', p_img);
-         }
-
-         function reset_img(id) {
-             // Reset the image source to the original one
-             if (originalSrc[id]) {
-                 $('.pro-img' + id).attr('src', originalSrc[id]);
-             }
-         }
-         
-   
-     </script>
+     
 @endpush

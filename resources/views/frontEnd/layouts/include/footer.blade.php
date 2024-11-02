@@ -57,7 +57,7 @@
 </style>
 
 
-<footer style="background-color: rgb(247, 255, 255); padding-top: 60px;">
+<footer class ="fade-effect" fade-direction="left" fade-time="1" style="background-color: rgb(247, 255, 255); padding-top: 60px;">
 
     <div class="container product-container d-flex flex-column gap-4 px-3">
 {{-- Team Section Starts--}}

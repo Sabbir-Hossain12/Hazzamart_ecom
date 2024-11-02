@@ -762,23 +762,36 @@
 
             });
             
+            //oh hover image Change
             
-            //Fade out animation on page visit
-            // $(document).ready(function() {
-            //     // Check if elements are visible when scrolling
-            //     $(window).on('scroll', function() {
-            //         $('.homeproduct').each(function() {
-            //             var elementTop = $(this).offset().top;
-            //             var windowBottom = $(window).scrollTop() + $(window).height();
-            //
-            //             // Fade in if the element is in the viewport
-            //             if (windowBottom > elementTop) {
-            //                 $(this).animate({ opacity: 1 }, 50); // Adjust duration as needed
-            //             }
-            //         });
-            //     });
-            // });
         </script>
+        
+{{-- on hover image change--}}
+    <script>
+
+        // Variable to store the original image source
+        let originalSrc = {};
+
+        function pro_img(id) {
+            // Store the original src in a variable only if it hasn’t been saved yet
+            if (!originalSrc[id]) {
+                originalSrc[id] = $('.pro-img' + id).attr('src');
+            }
+
+            // Get the new source from the slider image and set it
+            let p_img = $('.pro-slider-img' + id).attr('src');
+            $('.pro-img' + id).attr('src', p_img);
+        }
+
+        function reset_img(id) {
+            // Reset the image source to the original one
+            if (originalSrc[id]) {
+                $('.pro-img' + id).attr('src', originalSrc[id]);
+            }
+        }
+
+
+    </script>
  
     </body>
 </html>

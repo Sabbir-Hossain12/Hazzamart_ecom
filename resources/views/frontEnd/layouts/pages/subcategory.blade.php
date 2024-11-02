@@ -183,64 +183,33 @@
                 </form>
             </div>
             <div class="col-sm-9">
-                <div class="category-product main_product_inner">
-                    @foreach($products as $key=>$value)
-                    <div class="product_item wist_item  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay="0.{{$key}}s">
-                        <div class="product_item_inner">
-                            @if($value->old_price)
-                            <div class="sale-badge">
-                                <div class="sale-badge-inner">
-                                    <div class="sale-badge-box">
-                                        <span class="sale-badge-text">
-                                           <p> @php $discount=(((($value->old_price)-($value->new_price))*100) / ($value->old_price)) @endphp {{number_format($discount,0)}}%</p>
-                                            ছাড়
-                                        </span>
+                <div class="col-sm-12">
+                    <div class="row" style="column-gap: 0;
+                row-gap: 5rem;">
+                        @foreach ($products as $key => $value)
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 fade-effect"   fade-direction="left" fade-time="1">
+                                <a href="{{route('product',$value->slug)}}">
+                                    <div class="pro_img">
+
+                                        @if(count($value->images) > 1)
+                                            <img class="pro-slider-img{{$value->id}}" src="{{asset($value->images->get(1)->image)}}" hidden="">
+                                        @endif
+                                        <img class="pro-img pro-img{{$value->id}}" onmouseout="reset_img({{$value->id}})" onmouseover="pro_img({{$value->id}})" src="{{ asset($value->image->image) }}" alt=""/>
                                     </div>
-                                </div>
-                            </div>
-                            @endif
-                            <div class="pro_img">
-                                <a href="{{ route('product',$value->slug) }}">
-                                    <img src="{{ asset($value->image ? $value->image->image : '') }}" alt="{{$value->name}}" />
+
+                                    <div class="pro_content">
+                                        <p class="text-center my-2 pro-title">{{ $value->name }}</p>
+                                        <p class="text-center my-2 d-flex justify-content-center align-items-center gap-2">
+                                            <span class="text-decoration-line-through pro-old-price">{{$value->old_price}}Tk</span>
+                                            <span class="pro-title">{{ $value->new_price }}Tk</span>
+                                        </p>
+                                    </div>
+
                                 </a>
-                              
-                            </div>
-                            <div class="pro_des">
-                                <div class="pro_name">
-                                    <a href="{{ route('product',$value->slug) }}">{{Str::limit($value->name,80)}}</a>
-                                </div>
-                                <div class="pro_price">
-                                    <p>
-                                        <del>৳ {{ $value->old_price}}</del>
-                                        ৳ {{ $value->new_price}} @if($value->old_price) @endif
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
 
-                         @if(! $value->prosizes->isEmpty() || ! $value->procolors->isEmpty())
-                        <div class="pro_btn">
-                           
-                            <div class="cart_btn order_button">
-                                <a href="{{ route('product',$value->slug) }}" class="addcartbutton">অর্ডার</a>
                             </div>
-                            
-                        </div>
-                        @else
-
-                        <div class="pro_btn">
-                            
-                            <form action="{{route('cart.store')}}" method="POST">
-                                @csrf
-                                <input type="hidden" name="id" value="{{$value->id}}" />
-                                <input type="hidden" name="qty" value="1" />
-                                <button type="submit">অর্ডার</button>
-                            </form>
-                        </div>
-                        @endif
-                        
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
             </div>
         </div>

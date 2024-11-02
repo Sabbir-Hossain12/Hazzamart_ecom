@@ -58,6 +58,9 @@ Route::group(['namespace'=>'Frontend', 'middleware' => ['ipcheck','check_refer']
     Route::get('products/{slug}', [FrontendController::class, 'products'])->name('products');
 
     Route::get('hot-deals', [FrontendController::class, 'hotdeals'])->name('hotdeals');
+    Route::get('best-selling', [FrontendController::class, 'bestSelling'])->name('bestselling');
+    Route::get('hot-deals', [FrontendController::class, 'hotdeals'])->name('hotdeals');
+    
     Route::get('livesearch', [FrontendController::class, 'livesearch'])->name('livesearch');
     Route::get('search', [FrontendController::class, 'search'])->name('search');
     Route::get('product/{id}', [FrontendController::class, 'details'])->name('product');    

@@ -96,6 +96,16 @@ class FrontendController extends Controller
         return view('frontEnd.layouts.pages.hotdeals', compact('products'));
     }
 
+    public function bestSelling()
+    {
+        $products = Product::where(['status' => 1, 'topsale' => 1])
+            ->select('id', 'name', 'slug', 'new_price', 'old_price')
+            ->paginate(36);
+        
+//        dd($products);
+        return view('frontEnd.layouts.pages.best-selling', compact('products'));
+    }
+
     public function category($slug, Request $request)
     {
         $category = Category::where(['slug' => $slug, 'status' => 1])->first();
