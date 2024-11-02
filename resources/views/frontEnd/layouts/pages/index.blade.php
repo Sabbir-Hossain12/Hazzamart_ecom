@@ -134,7 +134,7 @@
 
                 <div class="col-12 category-container">
                     <div class="topcategory">
-                        @foreach ($menucategories as $key => $value)
+                        @foreach ($menucategories->take(12) as $key => $value)
                             <div class="cat_item text-center shadow-sm">
                                 <div class="cat_img">
                                    
@@ -180,7 +180,7 @@
                 <div class="col-sm-12">
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
-                        @foreach ($hotdeal_top as $key => $value)
+                        @foreach ($hotdeal_top->take(8) as $key => $value)
                             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                                 <a href="{{route('product',$value->slug)}}">
                                 <div class="pro_img">
@@ -236,7 +236,7 @@
                 <div class="col-sm-12">
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
-                        @foreach ($featuredCategories as $key => $value)
+                        @foreach ($featuredCategories->take(8) as $key => $value)
                             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                                 <a href="{{route('category',$value->slug)}}">
                                     <div class="pro_img">
@@ -288,7 +288,7 @@
                 <div class="col-sm-12">
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
-                        @foreach ($offerProducts as $key => $value)
+                        @foreach ($offerProducts->take(8) as $key => $value)
                             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                                 <a href="{{route('product',$value->slug)}}">
                                     <div class="pro_img">
@@ -345,7 +345,7 @@
                 <div class="col-sm-12">
                     <div class="row" style="column-gap: 0;
                 row-gap: 5rem;">
-                        @foreach ($newCategories as $key => $value)
+                        @foreach ($newCategories->take(8) as $key => $value)
                             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                                 <a href="{{route('category',$value->slug)}}">
                                     <div class="pro_img">

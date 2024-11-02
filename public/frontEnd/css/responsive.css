@@ -99,12 +99,12 @@
     
     .filter_sidebar.active::-webkit-scrollbar-thumb
     {
-    	background-color: #fe5200;
+    	background-color: #016938;
     }
 
     .filter_btn {
         display: inline-block;
-        background: #fe5200;
+        background: #016938;
         color: #fff;
         width: 55px;
         height: 33px;
@@ -116,7 +116,7 @@
         cursor: pointer;
     }
     .filter_close {
-        background: #fe5200;
+        background: #016938;
         padding: 10px 15px;
         font-size: 18px;
         color: #fff;
@@ -131,7 +131,7 @@
       li.mobile_home {
         border: 2px solid #ddd;
         margin-top: -35px;
-        background: #fe5200;
+        background: #016938;
         padding-top: 15px;
         border-radius: 50%;
         width: 75px;
@@ -162,8 +162,24 @@
     overflow-x: scroll;
 }
 .section-title-header .section-title-name {
-    font-size: 15px;
+    font-size: 25px;
+    color: #36454F;
 }
+
+    .pro-title
+    {
+        font-size: 14px;
+    }
+    .testi-name
+    {
+        font-size: 14px;
+    }
+    
+    .testi-designation
+    {
+        font-size: 12px;
+    }
+    
 
 #content {
     margin-left: 0;
@@ -249,7 +265,7 @@
 
 .mobile-menu::-webkit-scrollbar-thumb
 {
-	background-color: #fe5200;
+	background-color: #016938;
 }
 
 .mobile-search {
@@ -261,7 +277,7 @@
     display: flex;
     border: 1px solid;
     border-radius: 5px;
-    background-color: #fe5200;
+    background-color: #016938;
     height: 40px;
     overflow: hidden;
     position: relative;
@@ -279,7 +295,7 @@
 }
 
 .mobile-search form button {
-    background-color: #fe5200;
+    background-color: #016938;
     flex: 0 0 60px;
     position: absolute;
     right: 0;
@@ -567,7 +583,7 @@ header .toggle {
 	}
 .menu-logo img {
     width: auto;
-    height: 50px;
+    height: 30px;
     margin-top: 0;
 }
 .footer-menu ul li a {
@@ -589,7 +605,7 @@ header .toggle {
 .menu-bag .margin-shopping span {
     position: absolute;
     display: inline-block;
-    background-color: #fe5200;
+    background-color: #016938;
     height: 20px;
     border-radius: 50px;
     padding: 1px 7px;

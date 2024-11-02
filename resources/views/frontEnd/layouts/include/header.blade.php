@@ -75,16 +75,19 @@
             <div class="menu-logo">
                 <a href="{{route('home')}}"><img src="{{asset($generalsetting->white_logo)}}" alt="" /></a>
             </div>
-            <div class="menu-bag">
+            <div class="menu-bag d-flex gap-3">
+                <a id="searchToggleBtnSmall" href="javascript:void(0);"><i class="fa-solid fa-magnifying-glass"></i></a>
+                
                 <p class="margin-shopping">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="mobilecart-qty">{{Cart::instance('shopping')->count()}}</span>
+                    <i class="fa-solid fa-bag-shopping"></i>
+{{--                    <span class="mobilecart-qty">{{Cart::instance('shopping')->count()}}</span>--}}
                 </p>
+                
             </div>
         </div>
     </div>
 
-    <div class="mobile-search">
+    <div class="mobile-search d-none">
         <form action="{{route('search')}}">
             <input type="text" placeholder="Search Product ... " value="" class="msearch_keyword msearch_click" name="keyword" />
             <button><i data-feather="search"></i></button>

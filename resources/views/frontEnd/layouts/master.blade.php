@@ -746,6 +746,18 @@
                 });
 
             });
+            
+            //Toggle Search Bar Small Screen
+            $(document).ready(function () {
+
+                $('#searchToggleBtnSmall').on('click',function ()
+                {
+
+                    $('.mobile-search').toggleClass('d-none');
+
+                });
+
+            });
         </script>
  
     </body>
