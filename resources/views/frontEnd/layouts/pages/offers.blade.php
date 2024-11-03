@@ -9,6 +9,7 @@
 
 @endsection
 @push('script')
+    
 <script>
     $(".sort").change(function(){
        $('#loading').show();

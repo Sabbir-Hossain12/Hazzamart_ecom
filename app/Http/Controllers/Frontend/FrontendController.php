@@ -106,6 +106,43 @@ class FrontendController extends Controller
         return view('frontEnd.layouts.pages.best-selling', compact('products'));
     }
 
+    public function offerItems()
+    {
+        $products = Product::where(['status' => 1, 'isOffer' => 1])
+            ->select('id', 'name', 'slug', 'new_price', 'old_price')
+            ->paginate(36);
+
+//        dd($products);
+        return view('frontEnd.layouts.pages.offer-items', compact('products'));
+    }
+
+
+    public function newCollection()
+    {
+        $newCategories = Category::where(['status' => 1, 'isNew' => 1])
+            ->select('id', 'name', 'image', 'slug', 'status')
+            ->get();
+        
+        
+
+        return view('frontEnd.layouts.pages.new-collection', compact('newCategories'));
+    }
+
+
+    public function featuredCollection()
+    {
+        $featuredCategories = Category::where(['status' => 1, 'isFeatured' => 1])
+            ->select('id', 'name', 'image', 'slug', 'status')
+            ->get();
+
+
+
+        return view('frontEnd.layouts.pages.featured-collections', compact('featuredCategories'));
+    }
+
+
+
+
     public function category($slug, Request $request)
     {
         $category = Category::where(['slug' => $slug, 'status' => 1])->first();

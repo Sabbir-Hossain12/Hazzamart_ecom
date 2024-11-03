@@ -499,10 +499,15 @@
                         type: "GET",
                         data: { id: id },
                         url: "{{route('cart.remove')}}",
-                        success: function (data) {
+                        success: function (data) 
+                        {
                             if (data) {
-                                $(".cartlist").html(data);
-                                return cart_count() + mobile_cart() + cart_summary();
+                                // $(".cartlist").html(data);
+                                // return cart_count() + mobile_cart() + cart_summary();
+                                
+                                window.location.reload();
+                                
+                                toastr.success('Success', 'Product remove from cart succfully');
                             }
                         },
                     });

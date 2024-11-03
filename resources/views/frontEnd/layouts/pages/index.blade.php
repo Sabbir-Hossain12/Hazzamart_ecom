@@ -259,7 +259,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 text-center mt-5 px-4">
-                    <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                    <a href="{{ route('featuredcollection') }}" class="btn btn-md btn-success text-light" >View More</a>
                 </div>
             </div>
         </div>
@@ -315,7 +315,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 text-center mt-5 px-4">
-                    <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                    <a href="{{ route('offeritems') }}" class="btn btn-md btn-success text-light" >View More</a>
                 </div>
             </div>
         </div>
@@ -368,7 +368,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 text-center mt-5 px-4">
-                    <a href="{{ route('hotdeals') }}" class="btn btn-md btn-success text-light" >View More</a>
+                    <a href="{{ route('newcollection') }}" class="btn btn-md btn-success text-light" >View More</a>
                 </div>
             </div>
         </div>

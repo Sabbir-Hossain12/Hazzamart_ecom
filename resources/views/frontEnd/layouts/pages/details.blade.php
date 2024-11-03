@@ -187,27 +187,32 @@
                                                                     <span class="plus">+</span>
                                                                 </div>
                                                             </div>
-                                                            <div class="d-flex single_product col-sm-12">
-                                                                <input type="submit" class="btn px-4 add_cart_btn"
+                                                            
+                                                            <div class="d-flex single_product col-sm-12 justify-content-center">
+                                                                <input form="addToCart" type="submit" class="btn px-4 add_cart_btn"
                                                                     onclick="return sendSuccess();" name="add_cart"
-                                                                    value="কার্টে যোগ করুন " />
-
-                                                                <input type="submit"
+                                                                    value="Add to Cart" />
+                                                            </div>
+                                                            
+                                                             <div class="d-flex single_product col-sm-12 justify-content-center">
+                                                                    <input type="submit"
                                                                     class="btn px-4 order_now_btn order_now_btn_m"
                                                                     onclick="return sendSuccess();" name="order_now"
-                                                                    value="অর্ডার করুন" />
-                                                            </div>
+                                                                    value="Order Now" />
+                                                             </div>
+                                                            
                                                         </div>
-                                                        <div class="mt-md-2 mt-2">
-                                                            <h4 class="font-weight-bold">
-                                                                <a class="btn btn-success w-100 call_now_btn"
-                                                                    href="tel: {{ $contact->hotline }}">
-                                                                    <i class="fa fa-phone-square"></i>
-                                                                    {{ $contact->hotline }}
-                                                                </a>
-                                                            </h4>
-                                                        </div>
-                                                        <div class="mt-md-2 mt-2">
+{{--                                                        <div class="mt-md-2 mt-2">--}}
+{{--                                                            <h4 class="font-weight-bold">--}}
+{{--                                                                <a class="btn btn-success w-100 call_now_btn"--}}
+{{--                                                                    href="tel: {{ $contact->hotline }}">--}}
+{{--                                                                    <i class="fa fa-phone-square"></i>--}}
+{{--                                                                    {{ $contact->hotline }}--}}
+{{--                                                                </a>--}}
+{{--                                                            </h4>--}}
+{{--                                                        </div>--}}
+                                                
+                                                        <div class="mt-md-4 mt-4">
                                                             <div class="del_charge_area">
                                                                 <div class="alert alert-info text-xs">
                                                                     <div class="flext_area">
@@ -222,6 +227,19 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                            </form>
+
+                                            {{--Add to Cart--}}
+                                            <form action="{{ route('cart.store2') }}" method="POST" id="addToCart">
+
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $details->id }}" />
+                                                <!-- Your other inputs like color, size, etc. -->
+                                                <input type="hidden" name="product_color" value=""  />
+                                                <input type="hidden" name="product_size" value=""  />
+                                                <input type="hidden" name="qty" value="1" id="qty_buy" />
+
+                                                {{--                                                <input type="submit" class="btn px-4 order_now_btn order_now_btn_m" name="order_now" value="BUY NOW" />--}}
                                             </form>
 
 
@@ -416,66 +434,29 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div class="product-inner owl-carousel related_slider">
-                    @foreach ($products as $key => $value)
-                        <div class="product_item wist_item wow fadeInDown" data-wow-duration="1.5s"
-                            data-wow-delay="0.{{ $key }}s">
-                            <div class="product_item_inner">
-                                @if($value->old_price)
-                                <div class="sale-badge">
-                                    <div class="sale-badge-inner">
-                                        <div class="sale-badge-box">
-                                            <span class="sale-badge-text">
-                                                <p>@php 
-                                                $discount=(((($value->old_price)-($value->new_price))*100) / ($value->old_price)) 
-                                                @endphp 
-                                                {{ number_format($discount, 0) }}%</p>
-                                                ছাড়
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
+                <div class="row" style="column-gap: 0;
+                row-gap: 5rem;">
+                    @foreach ($products->take(8) as $key => $value)
+                        <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 fade-effect" fade-direction="left" fade-time="1" >
+                            <a href="{{route('product',$value->slug)}}">
                                 <div class="pro_img">
-                                    <a href="{{ route('product', $value->slug) }}">
-                                        <img src="{{ asset($value->image ? $value->image->image : '') }}"
-                                            alt="{{ $value->name }}" />
-                                    </a>
-                                </div>
-                                <div class="pro_des">
-                                    <div class="pro_name">
-                                        <a
-                                            href="{{ route('product', $value->slug) }}">{{ Str::limit($value->name, 80) }}</a>
-                                    </div>
-                                    <div class="pro_price">
-                                        <p>
-                                            <del>৳ {{ $value->old_price }}</del>
-                                            ৳ {{ $value->new_price }} @if ($value->old_price)
-                                            @endif
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
 
-                            @if (!$value->prosizes->isEmpty() || !$value->procolors->isEmpty())
-                                <div class="pro_btn">
-                                   
-                                    <div class="cart_btn order_button">
-                                        <a href="{{ route('product', $value->slug) }}"
-                                            class="addcartbutton">অর্ডার</a>
-                                    </div>
+                                    @if(count($value->images) > 1)
+                                        <img class="pro-slider-img{{$value->id}}" src="{{asset($value->images->get(1)->image)}}" hidden="">
+                                    @endif
+                                    <img class="pro-img pro-img{{$value->id}}" onmouseout="reset_img({{$value->id}})" onmouseover="pro_img({{$value->id}})" src="{{ asset($value->image->image) }}" alt=""/>
                                 </div>
-                            @else
-                                <div class="pro_btn">
-                                  
-                                    <form action="{{ route('cart.store') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $value->id }}" />
-                                        <input type="hidden" name="qty" value="1" />
-                                        <button type="submit">অর্ডার</button>
-                                    </form>
+
+                                <div class="pro_content">
+                                    <p class="text-center my-2 pro-title">{{ $value->name }}</p>
+                                    <p class="text-center my-2 d-flex justify-content-center align-items-center gap-2">
+                                        <span class="text-decoration-line-through pro-old-price">{{$value->old_price}}Tk</span>
+                                        <span class="pro-title">{{ $value->new_price }}Tk</span>
+                                    </p>
                                 </div>
-                            @endif
+
+                            </a>
+
                         </div>
                     @endforeach
                 </div>
@@ -640,16 +621,22 @@
     function sendSuccess() {
         // size validation
         size = document.forms["formName"]["product_size"].value;
-        if (size != "") {
+        if (size != "") 
+        {
             // access
-        } else {
+        }
+        else
+        {
             toastr.warning("Please select any size");
             return false;
         }
         color = document.forms["formName"]["product_color"].value;
-        if (color != "") {
+        if (color != "")
+        {
             // access
-        } else {
+        } else
+        
+        {
             toastr.error("Please select any color");
             return false;
         }

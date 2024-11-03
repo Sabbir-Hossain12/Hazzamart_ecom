@@ -75,6 +75,17 @@
                         </div>
                     </div>
                     <!-- col end -->
+                    <div class="col-sm-6 mb-3">
+                        <div class="form-group">
+                            <label for="marquee_text" class="form-label">Marquee Text *</label>
+                            <textarea id="marquee_text"  class="form-control @error('marquee_text') is-invalid @enderror" name="marquee_text" ></textarea>
+                            @error('marquee_text')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
                     
                     
                     <div class="col-sm-6 mb-3">

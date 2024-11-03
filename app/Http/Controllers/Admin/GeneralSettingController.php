@@ -99,6 +99,7 @@ class GeneralSettingController extends Controller
     
     public function update(Request $request)
     {
+//        dd($request->all());
         $this->validate($request, [
             'name' => 'required'
         ]);
@@ -169,6 +170,8 @@ class GeneralSettingController extends Controller
         }
         $input['status'] = $request->status?1:0;
         $update_data->update($input);
+//        $update_data->marquee_text = $request->marquee_text;
+//        $update_data->save();
 
         Toastr::success('Success','Data update successfully');
         return redirect()->route('settings.index');

@@ -56,7 +56,7 @@
 
 
             <div class="d-lg-block" id="lgmar">
-                <marquee behavior="" direction="" style="color:#fff;margin-top: 2px;"> KHATI.PLUS অনলাইন শপিং এ আপনাকে স্বাগতম । সকাল ৯ টা থেকে রাত ১০ টা পর্যন্ত ফোনে অর্ডার করতে পারবেন, রাত ১০ টার পরে ( অর্ডার করুন ) ক্লিক করে অর্ডার করার জন্য অনুরোধ করছি ।</marquee>
+                <marquee behavior="" direction="" style="color:#fff;margin-top: 2px;"> {{$generalsetting->marquee_text ?? ''}}</marquee>
             </div>
             
             <!-- /.cnt-cart -->
@@ -310,7 +310,7 @@
                     <div class="cart-item-title" >
                         <h2 style="font-size: 13px;
                                     color: black;
-                            line-height: 24px; font-weight: bold;">Fresh Indian Orange </h2>
+                            line-height: 24px; font-weight: bold;">{{$value->name}}</h2>
                         <p>{{$value->qty}} X  <span>৳{{$value->price}}</span></p>
                     </div>
                 </div>

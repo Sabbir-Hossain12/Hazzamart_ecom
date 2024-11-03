@@ -57,9 +57,12 @@ Route::group(['namespace'=>'Frontend', 'middleware' => ['ipcheck','check_refer']
 
     Route::get('products/{slug}', [FrontendController::class, 'products'])->name('products');
 
-    Route::get('hot-deals', [FrontendController::class, 'hotdeals'])->name('hotdeals');
+//  Route::get('hot-deals', [FrontendController::class, 'hotdeals'])->name('hotdeals');
     Route::get('best-selling', [FrontendController::class, 'bestSelling'])->name('bestselling');
-    Route::get('hot-deals', [FrontendController::class, 'hotdeals'])->name('hotdeals');
+    Route::get('offer-items', [FrontendController::class, 'offerItems'])->name('offeritems');
+    Route::get('/new-collection', [FrontendController::class, 'newCollection'])->name('newcollection');
+    Route::get('/featured-collection', [FrontendController::class, 'featuredCollection'])->name('featuredcollection');
+    
     
     Route::get('livesearch', [FrontendController::class, 'livesearch'])->name('livesearch');
     Route::get('search', [FrontendController::class, 'search'])->name('search');
@@ -76,7 +79,9 @@ Route::group(['namespace'=>'Frontend', 'middleware' => ['ipcheck','check_refer']
 
     // cart route
     Route::post('cart/store', [ShoppingController::class, 'cart_store'])->name('cart.store');
-
+    Route::post('cart/store2', [ShoppingController::class, 'cart_store2'])->name('cart.store2');
+    
+    
     Route::get('/add-to-cart/{id}/{qty}', [ShoppingController::class, 'addTocartGet']);
 
     Route::get('shop/cart', [ShoppingController::class, 'cart_show'])->name('cart.show');

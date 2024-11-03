@@ -71,24 +71,7 @@
             <h6 class="text-success mb-1 testi-designation">CEO</h6>
             
         </div>
-        <div class="col-2">
-            <div class="d-flex justify-content-center mb-4">
-                <img src="https://static.vecteezy.com/system/resources/previews/036/594/092/non_2x/man-empty-avatar-photo-placeholder-for-social-networks-resumes-forums-and-dating-sites-male-and-female-no-photo-images-for-unfilled-user-profile-free-vector.jpg"
-                     class="rounded-circle shadow-1-strong pro-img" width="150" height="150" />
-            </div>
-            <h5 class="mb-1 testi-name">Maria Smantha</h5>
-            <h6 class="text-success mb-1 testi-designation">CEO</h6>
-
-        </div>
-        <div class="col-2">
-            <div class="d-flex justify-content-center mb-4">
-                <img src="https://static.vecteezy.com/system/resources/previews/036/594/092/non_2x/man-empty-avatar-photo-placeholder-for-social-networks-resumes-forums-and-dating-sites-male-and-female-no-photo-images-for-unfilled-user-profile-free-vector.jpg"
-                     class="rounded-circle shadow-1-strong pro-img" width="150" height="150" />
-            </div>
-            <h5 class="mb-1 testi-name">Maria Smantha</h5>
-            <h6 class="text-success mb-1 testi-designation">CEO</h6>
-
-        </div>
+       
       
     </div>
 {{-- Team Section Ends--}}

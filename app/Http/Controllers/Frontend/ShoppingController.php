@@ -50,6 +50,30 @@ class ShoppingController extends Controller
         return redirect()->route('customer.checkout');
         
     }
+
+    public function cart_store2(Request $request)
+    {
+//        dd($request->all());
+        $product = Product::where(['id' => $request->id])->first();
+        Cart::instance('shopping')->add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'qty' => $request->qty,
+            'price' => $product->new_price,
+            'options' => [
+                'slug' => $product->slug,
+                'image' => $product->image->image,
+                'old_price' => $product->new_price,
+                'purchase_price' => $product->purchase_price,
+                'product_size'=>$request->product_size,
+                'product_color'=>$request->product_color,
+                'pro_unit'=>$request->pro_unit,
+            ],
+        ]);
+
+        Toastr::success('Product successfully add to cart', 'Success!');
+        return redirect()->back();
+    }
     public function cart_remove(Request $request)
     {
         $remove = Cart::instance('shopping')->update($request->id, 0);
