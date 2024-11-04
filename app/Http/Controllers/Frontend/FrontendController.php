@@ -38,9 +38,10 @@ class FrontendController extends Controller
             ->get();
 //        dd($featuredCategories);
         // return "Welcome to Kenakatar.com";
-        $frontcategory = Category::where(['status' => 1])
-            ->select('id', 'name', 'image', 'slug', 'status')
+        $frontcategories = Category::where(['status' => 1, 'front_view' => 1])
+            ->select('id', 'name', 'image', 'slug', 'status','category_icon')
             ->get();
+//        dd($frontcategories);
 
         $sliders = Banner::where(['status' => 1, 'category_id' => 1])
             ->select('id', 'image', 'link')
@@ -84,7 +85,7 @@ class FrontendController extends Controller
                 return $query;
             });
         // return $homeproducts;
-        return view('frontEnd.layouts.pages.index', compact('sliders', 'frontcategory', 'hotdeal_top', 'hotdeal_bottom', 'homeproducts', 'sliderbottomads', 'footertopads','newCategories','featuredCategories','offerProducts'));
+        return view('frontEnd.layouts.pages.index', compact('sliders', 'frontcategories', 'hotdeal_top', 'hotdeal_bottom', 'homeproducts', 'sliderbottomads', 'footertopads','newCategories','featuredCategories','offerProducts'));
     }
 
     public function hotdeals()

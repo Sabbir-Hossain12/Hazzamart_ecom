@@ -169,7 +169,7 @@
                                                     <a class="nav-link underline-hover-effect @if(Request::is('page/about')) active text-decoration-underline  @endif" href="{{route('page','about')}}">About</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link underline-hover-effect @if(Request::is('/best-selling')) active text-decoration-underline  @endif" href="">Best Selling</a>
+                                                    <a class="nav-link underline-hover-effect @if(Request::is('best-selling')) active text-decoration-underline  @endif" href="{{route('bestselling')}}">Best Selling</a>
                                                 </li>
                                                 
                                                 

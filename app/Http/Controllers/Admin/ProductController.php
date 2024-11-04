@@ -83,6 +83,7 @@ class ProductController extends Controller
 
         $input['status'] = $request->status?1:0;
         $input['topsale'] = $request->topsale?1:0;
+        $input['isOffer'] = $request->isOffer?1:0;
         $input['feature_product'] = $request->feature_product?1:0;
         $input['product_code'] = 'P' . str_pad($last_id, 4, '0', STR_PAD_LEFT);
         $save_data = Product::create($input);
@@ -169,6 +170,7 @@ class ProductController extends Controller
         $input['slug'] = strtolower(preg_replace('/[\/\s]+/', '-', $request->name.'-'.$last_id->id));
         $input['status'] = $request->status?1:0;
         $input['topsale'] = $request->topsale?1:0;
+        $input['isOffer'] = $request->isOffer?1:0;
         $input['feature_product'] = $request->feature_product?1:0;
         $update_data->update($input);
         $update_data->sizes()->sync($request->proSize);

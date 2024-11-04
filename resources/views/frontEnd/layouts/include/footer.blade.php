@@ -62,16 +62,19 @@
     <div class="container product-container d-flex flex-column gap-4 px-3">
 {{-- Team Section Starts--}}
     <div class="row text-center justify-content-center pt-4 column-gap-3">
+        
+        @forelse($teams as $team) 
         <div class="col-2">
             <div class="d-flex justify-content-center mb-4">
-                <img src="https://static.vecteezy.com/system/resources/previews/036/594/092/non_2x/man-empty-avatar-photo-placeholder-for-social-networks-resumes-forums-and-dating-sites-male-and-female-no-photo-images-for-unfilled-user-profile-free-vector.jpg"
+                <img src="{{asset($team->team_image) ?? 'public/frontEnd/assets/images/no-image.png'}}"
                      class="rounded-circle shadow-1-strong pro-img" width="150" height="150" />
             </div>
-            <h5 class="mb-1 testi-name">Maria Smantha</h5>
-            <h6 class="text-success mb-1 testi-designation">CEO</h6>
+            <h5 class="mb-1 testi-name">{{$team->team_name ?? ''}}</h5>
+            <h6 class="text-success mb-1 testi-designation">{{$team->team_designation ?? ''}}</h6>
             
         </div>
-       
+        @empty
+        @endforelse
       
     </div>
 {{-- Team Section Ends--}}
@@ -79,21 +82,26 @@
 {{--    Logo Section Starts    --}}
     <div class="row">
         <div class="col-6">
+{{--            @dd($generalsetting)--}}
             <div class="footer-logo mb-4">
-            <img src="{{$generalsetting->white_logo}}" class="img-fluid" alt="Responsive image">
+                <img src="{{$generalsetting->dark_logo}}" class="img-fluid" alt="Responsive image">
             </div>
+            
             <h2 class="footer-title">AN ONLINE SHOPPING MALL</h2>
+            
             <div>
                 <p class="footer-text">All kinds of online items are sold wholesale and retail here</p>
             </div>
+            
+            
             <ul class="social_link mt-2" style="text-align: start;" >
                 @foreach($socialicons as $value)
                     <li class="social_list">
-
                         <a class="mobile-social-link" href="{{$value->link}}"><i class="{{$value->icon}}"></i></a>
                     </li>
                 @endforeach
              </ul>
+            
         </div>
         
     </div>

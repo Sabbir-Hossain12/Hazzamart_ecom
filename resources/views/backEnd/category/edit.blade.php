@@ -50,6 +50,19 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="col-sm-12 mb-3">
+                        <div class="form-group">
+                            <label for="image" class="form-label">Icon (fontawesome.com) *</label>
+                            <input type="text" class="form-control @error('category_icon') is-invalid @enderror" name="category_icon"  value="{{ $edit_data->category_icon}}"  id="category_icon">
+                            @error('category_icon')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col end -->
                     <!-- col end -->
                     <div class="col-sm-12">
                         <div class="form-group mb-3">
@@ -102,6 +115,38 @@
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col end -->
+
+                    <div class="col mb-3">
+                        <div class="form-group">
+                            <label for="front_view" class="d-block">Featured</label>
+                            <label class="switch">
+                                <input type="checkbox" value="1" name="isFeatured" @if($edit_data->isFeatured==1) checked @endif>
+                                <span class="slider round"></span>
+                            </label>
+                            @error('isFeatured')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col end -->
+
+                    <div class="col mb-3">
+                        <div class="form-group">
+                            <label for="front_view" class="d-block">New</label>
+                            <label class="switch">
+                                <input type="checkbox" value="1" name="isNew" @if($edit_data->isNew==1) checked @endif>
+                                <span class="slider round"></span>
+                            </label>
+                            @error('isNew')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                             </span>
                             @enderror
                         </div>
                     </div>

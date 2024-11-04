@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Admin\TeamController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Frontend\FrontendController;
@@ -33,7 +35,7 @@ use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\TagManagerController;
-
+//use App\Http\Controllers\Admin\TeamController;
 Auth::routes();
 
 Route::get('/cc', function() {
@@ -455,5 +457,14 @@ Route::group(['namespace'=>'Admin','middleware' => ['auth','lock','check_refer']
     Route::post('customer/ip-store', [CustomerManageController::class,'ipblock_store'])->name('customers.ipblock.store');
     Route::post('customer/ip-update', [CustomerManageController::class,'ipblock_update'])->name('customers.ipblock.update');
     Route::post('customer/ip-destroy', [CustomerManageController::class,'ipblock_destroy'])->name('customers.ipblock.destroy');
+    
+    
+    // Teams Section
+//    Route::resource('/teams', App\Http\Controllers\Admin\TeamController::class)->names('team');
+    
 
+});
+
+Route::prefix('admin')->middleware(['auth','lock','check_refer'])->group(function () {
+    Route::resource('/teams', TeamController::class)->names('team');
 });

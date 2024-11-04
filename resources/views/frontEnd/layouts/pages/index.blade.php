@@ -128,6 +128,7 @@
 
 
     {{--Top Categories Start--}}
+    @if(count($frontcategories)>0) 
     <section class="homeproduct">
         <div class="container">
             <div class="row">
@@ -135,7 +136,7 @@
 
                 <div class="col-12 category-container">
                     <div class="topcategory">
-                        @foreach ($menucategories->take(12) as $key => $value)
+                        @foreach ($frontcategories->take(12) as $key => $value)
                             <div class="cat_item text-center shadow-sm fade-effect"  fade-direction="left" fade-time="1">
                                 <div class="cat_img">
                                    
@@ -156,6 +157,8 @@
             </div>
         </div>
     </section>
+    @else
+    @endif
     {{--Top Categories End--}}
 
 {{-- Best Selling Start   --}}

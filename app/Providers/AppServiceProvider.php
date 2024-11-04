@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Team;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\GeneralSetting;
 use App\Models\Category;
@@ -52,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
         $sidecategories = Category::where('parent_id','=','0')->where('status',1)->select('id','name','slug','status','image')->get();
         view()->share('sidecategories',$sidecategories); 
         
-        $menucategories = Category::with('subcategories')->where('status',1)->select('category_icon','id','name','slug','status','image')->get();
+        $menucategories = Category::with('subcategories')->where('status',1)->select('category_icon','id','name','slug','status','image')->take(10)->get();
         view()->share('menucategories',$menucategories); 
 
         $contact = Contact::where('status',1)->first();
@@ -87,5 +89,14 @@ class AppServiceProvider extends ServiceProvider
         
         $gtm_code = GoogleTagManager::where('status',1)->get();
         view()->share('gtm_code',$gtm_code);
+
+
+//        view()->composer('frontEnd.include.footer', function ($view) {
+            
+            $teams=Team::where('status',1)->select('team_name','team_designation','team_image')->get();
+            view()->share('teams',$teams);
+           
+//            $view->with('teams', $teams);
+//        });
     }
 }

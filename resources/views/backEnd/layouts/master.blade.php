@@ -411,6 +411,22 @@
                 </div>
               </li>
               <!-- nav items end -->
+                {{--  Teams --}}
+                <li>
+                    <a href="#siebar-teams" data-bs-toggle="collapse">
+                        <i data-feather="settings"></i>
+                        <span> Teams </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="siebar-teams">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{route('team.index')}}"><i data-feather="file-plus"></i> Team Manage</a>
+                            </li>
+                          
+                        </ul>
+                    </div>
+                </li>
               <li>
                 <a href="#sidebar-api-integration" data-bs-toggle="collapse">
                   <i data-feather="save"></i>

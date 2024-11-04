@@ -63,6 +63,11 @@ class CategoryController extends Controller
 
         $input['parent_id'] = $request->parent_id?$request->parent_id:0;
         $input['front_view'] = $request->front_view ? 1 : 0;
+        $input['isNew'] = $request->isNew ? 1 : 0;
+        $input['isFeatured'] = $request->isFeatured ? 1 : 0;
+        $input['category_icon'] = $request->category_icon;
+
+
         $input['image'] = $imageUrl;
         Category::create($input);
         Toastr::success('Success','Data insert successfully');
@@ -105,12 +110,16 @@ class CategoryController extends Controller
         }else{
             $input['image'] = $update_data->image;
         }
+        
         $input['slug'] = strtolower(preg_replace('/\s+/', '-', $request->name));
         $input['slug'] = str_replace('/', '', $input['slug']);
 
         $input['parent_id'] = $request->parent_id?$request->parent_id:0;
         $input['front_view'] = $request->front_view ? 1 : 0;
+        $input['isNew'] = $request->isNew ? 1 : 0;
+        $input['isFeatured'] = $request->isFeatured ? 1 : 0;
         $input['status'] = $request->status?1:0;
+        $input['category_icon'] = $request->category_icon;
         
         $update_data->update($input);
 

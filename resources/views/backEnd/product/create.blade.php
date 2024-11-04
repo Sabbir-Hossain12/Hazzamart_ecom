@@ -268,7 +268,7 @@
             <!-- col end -->
             <div class="col-sm-3 mb-3">
               <div class="form-group">
-                <label for="topsale" class="d-block">Hot Deals</label>
+                <label for="topsale" class="d-block">Best Selling</label>
                 <label class="switch">
                   <input type="checkbox" value="1" name="topsale" />
                   <span class="slider round"></span>
@@ -281,6 +281,22 @@
               </div>
             </div>
             <!-- col end -->
+
+              <div class="col-sm-3 mb-3">
+                  <div class="form-group">
+                      <label for="topsale" class="d-block">Offer</label>
+                      <label class="switch">
+                          <input type="checkbox" value="1" name="isOffer">
+                          <span class="slider round"></span>
+                      </label>
+                      @error('isOffer')
+                      <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                      @enderror
+                  </div>
+              </div>
+              <!-- col end -->
 
             <div>
               <input type="submit" class="btn btn-success" value="Submit" />

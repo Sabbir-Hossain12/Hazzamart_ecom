@@ -25,6 +25,7 @@ use Mail;
 class OrderController extends Controller
 {
     public function index($slug,Request $request){
+//        dd(Cart::instance('pos_shopping')->content());
         if($slug == 'all'){
             $order_status = (object) [
                 'name' => 'All',
@@ -482,7 +483,9 @@ class OrderController extends Controller
         $cartinfo = Cart::instance('pos_shopping')->content();
         return response()->json($cartinfo);
     }
-    public function product_discount(Request $request){
+    public function product_discount(Request $request)
+    {
+        
         $discount = $request->discount;
         $cart = Cart::instance('pos_shopping')->content()->where('rowId', $request->id)->first();
         $cartinfo = Cart::instance('pos_shopping')->update($request->id, [
@@ -492,6 +495,7 @@ class OrderController extends Controller
                 'old_price' => $cart->options->old_price,
                 'purchase_price' => $cart->options->purchase_price,
                 'product_discount' => $request->discount,
+                
             ],
         ]);
         return response()->json($cartinfo);
@@ -524,15 +528,18 @@ class OrderController extends Controller
             'name' => $ordetails->product_name,
             'qty' => $ordetails->qty,
             'price' => $ordetails->sale_price,
-            'options' => [
+            'options' =>
+                [
                 'image' => $ordetails->image->image,
                 'purchase_price' => $ordetails->purchase_price,
                 'product_discount' => $ordetails->product_discount,
                 'details_id' => $ordetails->id,
-            ],
+                ],
         ]);
         }
         $cartinfo  = Cart::instance('pos_shopping')->content();
+
+//        dd(Cart::instance('pos_shopping')->content());
         return view('backEnd.order.edit',compact('products','cartinfo','shippingcharge','shippinginfo','order'));
     }
     
