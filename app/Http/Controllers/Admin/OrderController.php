@@ -50,17 +50,24 @@ class OrderController extends Controller
         $pathao_info = Courierapi::where(['status'=>1, 'type'=>'pathao'])->select('id', 'type', 'url', 'token', 'status')->first();
         // pathao courier
         if($pathao_info) {
-            $response = Http::get($pathao_info->url . '/api/v1/countries/1/city-list');
+            $response = Http::get($pathao_info->url . '/aladdin/api/v1/countries/1/city-list');
             $pathaocities = $response->json();
             $response2 = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $pathao_info->token,
                 'Content-Type' => 'application/json',
-                ])->get($pathao_info->url . '/api/v1/stores');
+                'Accept' => 'application/json',
+                
+                ])->get($pathao_info->url . '/aladdin/api/v1/stores');
+            
             $pathaostore = $response2->json();
+           
+//            dd($pathaostore);
         } else {
             $pathaocities = [];
             $pathaostore = [];
         } 
+        
+        
         return view('backEnd.order.index',compact('show_data','order_status','users', 'steadfast','pathaostore','pathaocities'));
     } 
     
@@ -68,10 +75,12 @@ class OrderController extends Controller
     {
         $pathao_info = Courierapi::where(['status'=>1, 'type'=>'pathao'])->select('id', 'type', 'url', 'token', 'status')->first();
         if($pathao_info) {
-            $response = Http::get($pathao_info->url . '/api/v1/cities/'.$request->city_id.'/zone-list');
+            $response = Http::get($pathao_info->url . '/aladdin/api/v1/cities/'.$request->city_id.'/zone-list');
             $pathaozones = $response->json();
             return response()->json($pathaozones);
-        } else {
+        } 
+        else 
+        {
             return response()->json([]);
         }
     } 
@@ -79,7 +88,7 @@ class OrderController extends Controller
     {
         $pathao_info = Courierapi::where(['status'=>1, 'type'=>'pathao'])->select('id', 'type', 'url', 'token', 'status')->first();
         if($pathao_info) {
-            $response = Http::get($pathao_info->url . '/api/v1/zones/'.$request->zone_id.'/area-list');
+            $response = Http::get($pathao_info->url . '/aladdin/api/v1/zones/'.$request->zone_id.'/area-list');
             $pathaoareas = $response->json();
             return response()->json($pathaoareas);
         } else {
@@ -102,7 +111,7 @@ class OrderController extends Controller
                     'Authorization' => 'Bearer ' . $pathao_info->token,
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                ])->post($pathao_info->url . '/api/v1/orders', [
+                ])->post($pathao_info->url . '/aladdin/api/v1/orders', [
                     'store_id' => $request->pathaostore,
                     'merchant_order_id' => $order->invoice_id,
                     'sender_name' => 'Test',
