@@ -132,11 +132,13 @@ class OrderController extends Controller
                 ]);
             }
             if ($response->status() == '200') {
+                $order->update(['order_status'=>5]);
                 Toastr::success($response['data']['consignment_id'], 'Courier Tracking ID');
                 return redirect()->back();
             } else {
-                Toastr::error($response['message'], 'Courier Order Faild');
-                return response()->json(['status' => 'failed', 'message' => $response['message'], 'Courier Order Faild']);
+                Toastr::error($response['message'], $response['errors']);
+                return redirect()->back();
+//                return response()->json(['status' => 'failed', 'message' => $response['message'], 'errors'=>$response['errors'], 'Courier Order Faild']);
             }
             return redirect()->back();
         }else{
