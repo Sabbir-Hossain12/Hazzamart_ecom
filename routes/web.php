@@ -2,6 +2,8 @@
 
 
 use App\Http\Controllers\Admin\TeamController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Frontend\FrontendController;
@@ -467,4 +469,33 @@ Route::group(['namespace'=>'Admin','middleware' => ['auth','lock','check_refer']
 
 Route::prefix('admin')->middleware(['auth','lock','check_refer'])->group(function () {
     Route::resource('/teams', TeamController::class)->names('team');
+});
+
+
+Route::get('/aladdin/api/v1/issue-token', function (Request $request) {
+    $baseUrl = url('/'); // Replace with the actual base URL
+
+    $url = $baseUrl . '/aladdin/api/v1/issue-token';
+
+    // Prepare the request payload
+    $data = [
+        'client_id' => $request->input('client_id'),       // Pass via request or hardcode
+        'client_secret' => $request->input('client_secret'), // Pass via request or hardcode
+        'username' => $request->input('username'),           // Pass via request or hardcode
+        'password' => $request->input('password'),           // Pass via request or hardcode
+        'grant_type' => 'password',
+    ];
+
+    // Make the POST request to Pathao API
+    $response = Http::withHeaders([
+        'accept' => 'application/json',
+        'content-type' => 'application/json',
+    ])->post($url, $data);
+
+    // Check and return the response
+    if ($response->successful()) {
+        return response()->json($response->json());
+    }
+
+    return response()->json(['error' => 'Failed to retrieve access token'], $response->status());
 });

@@ -289,7 +289,7 @@ class FrontendController extends Controller
             ->select('id', 'name', 'slug', 'new_price', 'old_price')
             ->get();
         $shippingcharge = ShippingCharge::where('status', 1)->get();
-        $reviews = Review::where('product_id', $details->id)->get();
+        $reviews = Review::where('product_id', $details->id)->where('status','active')->get();
         $productcolors = Productcolor::where('product_id', $details->id)
             ->with('color')
             ->get();

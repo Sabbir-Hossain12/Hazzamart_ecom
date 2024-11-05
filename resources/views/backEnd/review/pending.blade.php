@@ -16,7 +16,9 @@
                 <div class="page-title-right">
                     <a href="{{route('reviews.create')}}" class="btn btn-primary rounded-pill">Create</a>
                 </div>
+                
                 <h4 class="page-title">Pending Review</h4>
+                
             </div>
         </div>
     </div>        
@@ -33,6 +35,7 @@
                             <th>Email</th>
                             <th>Review</th>
                             <th>Ratting</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -46,6 +49,7 @@
                             <td>{{$value->email}}</td>
                             <td>{{Str::limit($value->review,50)}}</td>
                             <td>{{$value->ratting}}</td>
+                            <td>{{ ucfirst($value->status)}}</td>
                             <td>
                                 <div class="button-list">
                                     @if($value->status == 'active')

@@ -22,7 +22,7 @@
                         @csrf
                     <button type="submit" class="btn btn-danger rounded-pill delete-confirm" title="Delete"><i class="fas fa-trash-alt"></i> Cart Clear</button></form>
                 </div>
-                <h4 class="page-title">Order Create</h4>
+                <h4 class="page-title">Order Edit</h4>
             </div>
         </div>
     </div>

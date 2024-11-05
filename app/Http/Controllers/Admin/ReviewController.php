@@ -71,7 +71,7 @@ class ReviewController extends Controller
         $update_data->update($input);
 
         Toastr::success('Success','Data update successfully');
-        return redirect()->route('reviews.index');
+        return redirect()->back();
     }
  
     public function pending(){
@@ -90,9 +90,9 @@ class ReviewController extends Controller
         $active->status = 'active';
         $active->save();
         
-        $product = Product::select('id','ratting')->find($active->product_id);
-        $product->ratting += 1;
-        $product->save();
+//        $product = Product::select('id','ratting')->find($active->product_id);
+//        $product->ratting += 1;
+//        $product->save();
         Toastr::success('Success','Data active successfully');
         return redirect()->back();
     }

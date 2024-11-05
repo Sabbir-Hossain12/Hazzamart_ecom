@@ -231,10 +231,10 @@ class OrderController extends Controller
     public function order_status(Request $request){
         $orders = Order::whereIn('id', $request->input('order_ids'))->update(['order_status' => $request->order_status]);
 
-        if($request->order_status == 5){
+        if($request->order_status == 6){
             $orders = Order::whereIn('id', $request->input('order_ids'))->get();
             foreach($orders as $order){
-                $orders_details = OrderDetails::select('id','order_id','product_id')->where('order_id',$order->id)->get();
+                $orders_details = OrderDetails::select('id','order_id','product_id','qty')->where('order_id',$order->id)->get();
                 foreach($orders_details as $order_details){
                     $product = Product::select('id','stock')->find($order_details->product_id);
                     $product->stock -= $order_details->qty;
@@ -290,7 +290,7 @@ class OrderController extends Controller
                 if ($responseData['status'] == 200) {
                     $message = 'Your order place to courier successfully';
                     $status = 'success';
-                    $order->order_status = 4;
+                    $order->order_status = 5;
                     $order->save();
                 } else {
                     $message = 'Your order place to courier failed';
@@ -453,6 +453,8 @@ class OrderController extends Controller
                 'product_discount' => 0,
             ],
         ]);
+        
+//        dd(Cart::instance('pos_shopping')->content());
         return response()->json(compact('cartinfo'));
     }
     public function cart_content(){
@@ -481,6 +483,8 @@ class OrderController extends Controller
     public function cart_remove(Request $request){
         $remove = Cart::instance('pos_shopping')->remove($request->id);
         $cartinfo = Cart::instance('pos_shopping')->content();
+        
+       
         return response()->json($cartinfo);
     }
     public function product_discount(Request $request)
@@ -537,6 +541,7 @@ class OrderController extends Controller
                 ],
         ]);
         }
+        
         $cartinfo  = Cart::instance('pos_shopping')->content();
 
 //        dd(Cart::instance('pos_shopping')->content());
@@ -565,7 +570,9 @@ class OrderController extends Controller
         $exits_customer = Customer::where('phone',$request->phone)->select('phone','id')->first();
         if($exits_customer){
             $customer_id = $exits_customer->id;
-        }else{
+        }
+        else
+        {
             $password = rand(111111,999999);
             $store              = new Customer();
             $store->name        = $request->name;
@@ -609,16 +616,33 @@ class OrderController extends Controller
         $payment->payment_status = 'pending';
         $payment->save();
 
-       // order details data save
-        foreach(Cart::instance('pos_shopping')->content() as $cart){
+
+
+        // Get current order details
+        $currentOrderDetails = OrderDetails::where('order_id', $order->id)->get();
+        $currentOrderDetailsIds = $currentOrderDetails->pluck('id')->toArray();
+
+        // Track the cart item IDs to manage deletions
+        $cartItemIds = [];
+
+
+        // order details data save
+        foreach(Cart::instance('pos_shopping')->content() as $cart)
+        {
+            $cartItemIds[] = $cart->options->details_id; // Track the cart item IDs
             $exits = OrderDetails::where('id',$cart->options->details_id)->first();
-            if($exits){
+            if($exits)
+            {
+                
                 $order_details                   =   OrderDetails::find($exits->id);
                 $order_details->product_discount =   $cart->options->product_discount;
                 $order_details->sale_price       =   $cart->price;
                 $order_details->qty              =   $cart->qty;
                 $order_details->save();
-            }else{
+                
+            }
+            else
+            {
                 $order_details                   =   new OrderDetails();
                 $order_details->order_id         =   $order->id;
                 $order_details->product_id       =   $cart->id;
@@ -628,9 +652,19 @@ class OrderController extends Controller
                 $order_details->sale_price       =   $cart->price;
                 $order_details->qty              =   $cart->qty;
                 $order_details->save();
+                
             }
             
+            
+            
         }
+
+        // Delete order details that are no longer in the cart
+        $idsToDelete = array_diff($currentOrderDetailsIds, $cartItemIds);
+        if (!empty($idsToDelete)) {
+            OrderDetails::whereIn('id', $idsToDelete)->delete();
+        }
+        
         Cart::instance('pos_shopping')->destroy();
         Session::forget('pos_shipping');
         Session::forget('pos_discount');

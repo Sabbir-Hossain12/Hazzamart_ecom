@@ -11,16 +11,16 @@
 <div class="container-fluid">
     
     <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                <div class="page-title-right">
-                    <a href="{{route('orderstatus.create')}}" class="btn btn-primary rounded-pill">Create</a>
-                </div>
-                <h4 class="page-title">Order Status Manage</h4>
-            </div>
-        </div>
-    </div>       
+{{--    <div class="row">--}}
+{{--        <div class="col-12">--}}
+{{--            <div class="page-title-box">--}}
+{{--                <div class="page-title-right">--}}
+{{--                    <a href="{{route('orderstatus.create')}}" class="btn btn-primary rounded-pill">Create</a>--}}
+{{--                </div>--}}
+{{--                <h4 class="page-title">Order Status Manage</h4>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>       --}}
     <!-- end page title --> 
    <div class="row">
     <div class="col-12">
@@ -32,7 +32,7 @@
                             <th>SL</th>
                             <th>Name</th>
                             <th>Status</th>
-                            <th>Action</th>
+{{--                            <th>Action</th>--}}
                         </tr>
                     </thead>
                 
@@ -43,28 +43,28 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$value->name}}</td>
                             <td>@if($value->status==1)<span class="badge bg-soft-success text-success">Active</span> @else <span class="badge bg-soft-danger text-danger">Inactive</span> @endif</td>
-                            <td>
-                                <div class="button-list">
-                                    @if($value->status == 1)
-                                    <form method="post" action="{{route('orderstatus.inactive')}}" class="d-inline"> 
-                                    @csrf
-                                    <input type="hidden" value="{{$value->id}}" name="hidden_id">       
-                                    <button type="button" class="btn btn-xs  btn-secondary waves-effect waves-light change-confirm"><i class="fe-thumbs-down"></i></button></form>
-                                    @else
-                                    <form method="post" action="{{route('orderstatus.active')}}" class="d-inline">
-                                        @csrf
-                                    <input type="hidden" value="{{$value->id}}" name="hidden_id">        
-                                    <button type="button" class="btn btn-xs  btn-success waves-effect waves-light change-confirm"><i class="fe-thumbs-up"></i></button></form>
-                                    @endif
+{{--                            <td>--}}
+{{--                                <div class="button-list">--}}
+{{--                                    @if($value->status == 1)--}}
+{{--                                    <form method="post" action="{{route('orderstatus.inactive')}}" class="d-inline"> --}}
+{{--                                    @csrf--}}
+{{--                                    <input type="hidden" value="{{$value->id}}" name="hidden_id">       --}}
+{{--                                    <button type="button" class="btn btn-xs  btn-secondary waves-effect waves-light change-confirm"><i class="fe-thumbs-down"></i></button></form>--}}
+{{--                                    @else--}}
+{{--                                    <form method="post" action="{{route('orderstatus.active')}}" class="d-inline">--}}
+{{--                                        @csrf--}}
+{{--                                    <input type="hidden" value="{{$value->id}}" name="hidden_id">        --}}
+{{--                                    <button type="button" class="btn btn-xs  btn-success waves-effect waves-light change-confirm"><i class="fe-thumbs-up"></i></button></form>--}}
+{{--                                    @endif--}}
 
-                                    <a href="{{route('orderstatus.edit',$value->id)}}" class="btn btn-xs btn-primary waves-effect waves-light"><i class="fe-edit-1"></i></a>
+{{--                                    <a href="{{route('orderstatus.edit',$value->id)}}" class="btn btn-xs btn-primary waves-effect waves-light"><i class="fe-edit-1"></i></a>--}}
 
-                                    <form method="post" action="{{route('orderstatus.destroy')}}" class="d-inline">        
-                                        @csrf
-                                    <input type="hidden" value="{{$value->id}}" name="hidden_id">
-                                    <button type="submit" class="btn btn-xs btn-danger waves-effect waves-light delete-confirm"><i class="mdi mdi-close"></i></button></form>
-                                </div>
-                            </td>
+{{--                                    <form method="post" action="{{route('orderstatus.destroy')}}" class="d-inline">        --}}
+{{--                                        @csrf--}}
+{{--                                    <input type="hidden" value="{{$value->id}}" name="hidden_id">--}}
+{{--                                    <button type="submit" class="btn btn-xs btn-danger waves-effect waves-light delete-confirm"><i class="mdi mdi-close"></i></button></form>--}}
+{{--                                </div>--}}
+{{--                            </td>--}}
                         </tr>
                         @endforeach
                     </tbody>
